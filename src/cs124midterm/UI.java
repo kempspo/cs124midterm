@@ -51,7 +51,7 @@ public class UI {
 	}
 
 	/**
-	 * Creates label for the window
+	 * Creates label for the window idk
 	 */
 	public void createTopLabel()
 	{
@@ -106,5 +106,56 @@ public class UI {
 		}
 		moveUp.addActionListener(new moveUpListener());
 		bottomPanel.add(moveUp);
+
+		JButton moveDown = new JButton("Go South");
+		class moveDownListener implements ActionListener
+		{
+			public void actionPerformed( ActionEvent ae )
+			{
+				printer.println("You went south");
+				output += "You went south. \n";
+				printer.println(); // current room
+				output += "something"; // current room
+
+				textArea.setText(output);
+				printer.flush();
+			}
+		}
+		moveDown.addActionListener(new moveDownListener());
+		bottomPanel.add(moveDown);
+
+		JButton moveLeft = new JButton("Go West");
+		class moveLeftListener implements ActionListener
+		{
+			public void actionPerformed( ActionEvent ae )
+			{
+				printer.println("You went west");
+				output += "You went west. \n";
+				printer.println(); // current room
+				output += "something"; // current room
+
+				textArea.setText(output);
+				printer.flush();
+			}
+		}
+		moveLeft.addActionListener(new moveLeftListener());
+		bottomPanel.add(moveLeft);
+
+		JButton moveRight = new JButton("Go East");
+		class moveRightListener implements ActionListener
+		{
+			public void actionPerformed( ActionEvent ae )
+			{
+				printer.println("You went east");
+				output += "You went east. \n";
+				printer.println(); // current room
+				output += "something"; // current room
+
+				textArea.setText(output);
+				printer.flush();
+			}
+		}
+		moveRight.addActionListener(new moveRightListener());
+		bottomPanel.add(moveLeft);
 	}
 }
