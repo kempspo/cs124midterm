@@ -71,6 +71,9 @@ public class UI {
 			centerArea.add(textArea);
 	}
 
+	/**
+	 * Creates inventory text area
+	 */
 	public void createInventoryArea()
 	{
 		 textArea2 = new JTextArea();
@@ -81,6 +84,9 @@ public class UI {
 		 centerArea.add(new JLabel("Inventory"));
 	}
 
+	/**
+	 * Creates field for user inputs
+	 */
 	public void createInput()
 	{
 		textField = new JTextField();
@@ -88,6 +94,11 @@ public class UI {
 		bottomArea.add(new JLabel(" PLACEHOLDER "));
 	}
 
+	/**
+	 * Creates the ff buttons:
+	 *	- Go North, South, East, West
+	 *	- 
+	 */
 	public void createButtons()
 	{
 		JButton moveUp = new JButton("Go North");
