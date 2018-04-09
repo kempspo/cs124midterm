@@ -4,5 +4,5 @@ import anno.Direction;
 
 public class Room1
 {
-  
+
 }
