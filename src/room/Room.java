@@ -1,14 +1,15 @@
-package cs124midterm;
+package room;
 
 import java.util.*;
+import cs124midterm.Item;
 
 public class Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	public Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 
-	public void getDescription()
+	public String getDescription()
 	{
-
+		return null;
 	}
 
 	public boolean hasItem(String item) //check if item is in room hashmap

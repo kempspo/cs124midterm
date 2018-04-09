@@ -1,6 +1,7 @@
 package cs124midterm;
 
 import java.util.*;
+import room.Room;
 
 public class Player 
 {

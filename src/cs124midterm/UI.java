@@ -32,7 +32,7 @@ public class UI extends JFrame
 		createTopLabel();
 
 		centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(2,0));
+		centerPanel.setLayout(new GridLayout(0,2));
 		add(centerPanel,"Center");
 
 		centerArea = new JPanel();
@@ -110,7 +110,7 @@ public class UI extends JFrame
 				printer.println("You went north");
 				output += "You went north. \n";
 				printer.println(); // current room
-				output += "something"; // current room
+				output += "something \n"; // current room
 
 				textArea.setText(output);
 				printer.flush();
@@ -127,7 +127,7 @@ public class UI extends JFrame
 				printer.println("You went south");
 				output += "You went south. \n";
 				printer.println(); // current room
-				output += "something"; // current room
+				output += "something \n"; // current room
 
 				textArea.setText(output);
 				printer.flush();
@@ -144,7 +144,7 @@ public class UI extends JFrame
 				printer.println("You went west");
 				output += "You went west. \n";
 				printer.println(); // current room
-				output += "something"; // current room
+				output += "something \n"; // current room
 
 				textArea.setText(output);
 				printer.flush();
@@ -161,14 +161,14 @@ public class UI extends JFrame
 				printer.println("You went east");
 				output += "You went east. \n";
 				printer.println(); // current room
-				output += "something"; // current room
+				output += "something \n"; // current room
 
 				textArea.setText(output);
 				printer.flush();
 			}
 		}
 		moveRight.addActionListener(new moveRightListener());
-		bottomPanel.add(moveLeft);
+		bottomPanel.add(moveRight);
 	}
 	
     public void closer()
