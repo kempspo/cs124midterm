@@ -170,4 +170,9 @@ public class UI extends JFrame
 		moveRight.addActionListener(new moveRightListener());
 		bottomPanel.add(moveLeft);
 	}
+	
+    public void closer()
+    {
+        printer.close();
+    }
 }
