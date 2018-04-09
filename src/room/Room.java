@@ -38,4 +38,10 @@ public class Room
 		else
 			System.out.println("There is no " + item + " in the room.");
 	}
+
+	@Command(command="look")
+	public String look()
+	{
+		return null;
+	}
 }

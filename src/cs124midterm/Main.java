@@ -11,7 +11,7 @@ public class Main
         UI lol = new UI();
         lol.setSize( 700, 300 );
         lol.setVisible( true );
-        lol.setTitle( "Dragons are cool" );
+        lol.setTitle( "Mazes are cool" );
         lol.addWindowListener(new java.awt.event.WindowAdapter()
         {
           @Override
