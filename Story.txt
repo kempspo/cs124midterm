@@ -1,0 +1,120 @@
+<Room1>
+*You wake up. You're on the floor. Your head's throbbing. You can:*
+- Look around
+*You look around. The room is empty except for the door.*
+- Go North [Room2]
+
+<Room2>
+*You hear screams from an adjacent room,
+but there are 2 other doors and you don't know from which it came from.*
+- Look around
+- Go West [Room3]
+- Go East [Room4]
+- Go South [Room1]
+
+*You look around. Looks like a storage room of some sort.
+There's a bunch of pots and pans. You may take one*
+- Take pan //update inventory
+- Go West [Room3]
+- Go East [Room4]
+
+<Room3>
+*You enter the room. You see a girl tied up on the table.*
+- Look around
+- Go East [Room2]
+- Go South [Room5]
+
+*You look around. The girl on the table is your friend.*
+- Untie her
+- Go East [Room2]
+- Go South [Room5]
+
+*As you untie your friend, she awakens. You have gained a new companion.
+Companions don't do anything in this game. *
+- Talk to her
+- Go East [Room2]
+- Go South [Room5]
+
+*You: "What happened to you?"
+ Friend: "I ... I don't remember. It all happened so quick. All I remember
+ is seeing 'ESS' written in blood before getting knocked out." *
+- Go East [Room2]
+- Go South [Room5]
+
+<Room4>
+* The room's pretty empty. Just a bunch of chairs and tables. *
+- Look around
+- Go West [Room3]
+
+* You look around and find a set of keys on the rack *
+- Take keys //update Inventory
+- Go West [Room3]
+
+<Room5>
+* You enter the room. There's a rack of knives*
+- Look around
+- Go North [Room3]
+- Go East [Room6]
+
+*There's nothing except knives*
+- Take knife //update inventory
+
+<Room6>
+* The room is full of trash *
+- Look around
+- Go West [Room5]
+- Go South [Room7]
+
+* The word "GEN" is scribbled on a paper*
+
+<Room7>
+IF: key in inventory:
+* The room is dark and cold. All around you are things frozen solid.
+There seems to be nothing of interest here. Or is there? *
+- Look around
+- Go North [Room6]
+- Go West [Room8]
+
+IF: key NOT in Inventory
+* Door is locked. Must find the key.* [stay in Room6]
+
+<Room8>
+* It's all condiments here. There's some salt, pepper, some other stuff I
+don't really know. *
+- Look around
+- Go South [Room9]
+- Go East [Room7]
+
+* You find a piece of paper saying "Password: 3,2,1" *
+- Go South [Room9]
+- Go East [Room7]
+
+<Room9>
+* You see a man in white. He's about to throw something into a pot. *
+- Look around
+- Go West [Room10]
+- Go North [Room8]
+
+* You look closer at what the man is throwing into the pot. It's your brother.*
+IF: pan in inventory
+- Knock man out with pan.
+IF: pan NOT in inventory
+- * The man turns around and sees you. He quickly grabs the pot and knocks
+you out with it. You're dead. You're now a delicious steamed Dungeness crab. *
+
+* You knock the man out with the pan and free your brother*
+- Talk to brother
+
+* Brother: "Let's get out of this DUNgeon" *
+- Go West [Room10]
+- Go North [Room8]
+
+<Room10>
+* You see a door locked via keypad. Enter the password on the keypad *
+IF: Password is correct ("Dungeness")
+    - The door opens. You get out and make your way back home with your friends
+    and family. If you haven't realized yet, you're a crab.
+    The end.
+IF: Password is incorrect
+    - The men in white catch up to you. They tie you up and throw you into a
+    boiling pot. You're dead. You're now a delicious steamed Dungeness crab.
