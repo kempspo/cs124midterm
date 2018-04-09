@@ -6,9 +6,10 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-public class UI {
+public class UI extends JFrame
+{
 
-	String output;
+	String output,inventory;
 	PrintWriter printer;
 
 	private JLabel topLabel;
@@ -97,7 +98,7 @@ public class UI {
 	/**
 	 * Creates the ff buttons:
 	 *	- Go North, South, East, West
-	 *	- 
+	 *	-
 	 */
 	public void createButtons()
 	{
