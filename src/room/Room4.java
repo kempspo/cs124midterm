@@ -1,6 +1,6 @@
 package room;
 
-import anno.Direction;
+import anno.*;
 import java.util.*;
 
 public class Room4 extends Room
