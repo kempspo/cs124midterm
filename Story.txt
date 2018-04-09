@@ -65,6 +65,9 @@ Companions don't do anything in this game. *
 - Go West [Room5]
 - Go South [Room7]
 
+IF: knife in inventory:
+*accidentally stab yourself. ded.*
+IF: knife NOT in inventory:
 * The word "GEN" is scribbled on a paper*
 
 <Room7>
