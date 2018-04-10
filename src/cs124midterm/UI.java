@@ -9,7 +9,7 @@ import java.util.*;
 public class UI extends JFrame
 {
 
-	String output,inventory;
+	String output,inventory, input;
 	PrintWriter printer;
 
 	private JLabel topLabel;
@@ -19,6 +19,8 @@ public class UI extends JFrame
 	private JTextField textField;
 
 	private JPanel topPanel, centerPanel, bottomArea, centerArea, bottomPanel;
+	
+	private JScrollPane scrollPane;
 
 	public UI() throws FileNotFoundException
 	{
@@ -32,11 +34,11 @@ public class UI extends JFrame
 		createTopLabel();
 
 		centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(0,2));
+		centerPanel.setLayout(new GridLayout(0,1));
 		add(centerPanel,"Center");
 
 		centerArea = new JPanel();
-		centerArea.setLayout(new FlowLayout());
+		centerArea.setLayout(new GridLayout(1,0));
 		centerPanel.add( centerArea );
 		createTextArea();
 		createInventoryArea();
@@ -66,11 +68,12 @@ public class UI extends JFrame
 	 */
 	public void createTextArea()
 	{
-			textArea = new JTextArea(10,20);
+			textArea = new JTextArea();
+			scrollPane = new JScrollPane(textArea); 
 			textArea.setEditable(false);
 			output = "";
 			textArea.setText(output);
-			centerArea.add(textArea);
+			centerArea.add(scrollPane);
 	}
 
 	/**
@@ -78,12 +81,12 @@ public class UI extends JFrame
 	 */
 	public void createInventoryArea()
 	{
-		 textArea2 = new JTextArea();
+		 textArea2 = new JTextArea(25,20);
 		 textArea2.setEditable(false);
 		 inventory = "";
-		 textArea2.setText(inventory);
+		 String stand = "INVENTORY";
+		 textArea2.setText(stand + "\n" + inventory);
 		 centerArea.add(textArea2);
-		 centerArea.add(new JLabel("Inventory"));
 	}
 
 	/**
@@ -91,9 +94,15 @@ public class UI extends JFrame
 	 */
 	public void createInput()
 	{
-		textField = new JTextField();
+		textField = new JTextField(20);
+		bottomArea.add(new JLabel(" Input here: "));
 		bottomArea.add( textField );
-		bottomArea.add(new JLabel(" PLACEHOLDER "));
+		
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed( ActionEvent e ) {
+				input = textField.getText();
+			}
+		});
 	}
 
 	/**
@@ -170,8 +179,10 @@ public class UI extends JFrame
 		}
 		moveRight.addActionListener(new moveRightListener());
 		bottomPanel.add(moveRight);
+		
+		
 	}
-	
+
     public void closer()
     {
         printer.close();

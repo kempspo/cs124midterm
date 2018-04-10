@@ -9,7 +9,7 @@ public class Main
     public static void main(String[] args) throws FileNotFoundException
     {
         UI lol = new UI();
-        lol.setSize( 700, 300 );
+        lol.setSize( 1280, 720 );
         lol.setVisible( true );
         lol.setTitle( "Mazes are cool" );
         lol.addWindowListener(new java.awt.event.WindowAdapter()

@@ -23,7 +23,7 @@ public class Room2 extends Room
 	public String look()
 	{
 		return "You look around. Looks like a storage room of some sort."
-			+ " There's a bunch of pots and pans. You may take one";
+			+ " There's a bunch of pots and pans. You may use command 'take pan'";
 	}
 
 }
