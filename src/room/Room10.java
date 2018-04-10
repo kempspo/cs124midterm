@@ -3,7 +3,7 @@ package room;
 import anno.*;
 import java.util.*;
 
-public class Room10 extends Room
+public class Room10
 {
 
   public String getDescription()

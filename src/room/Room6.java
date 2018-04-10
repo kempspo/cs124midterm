@@ -3,7 +3,7 @@ package room;
 import anno.*;
 import java.util.*;
 
-public class Room6 extends Room
+public class Room6
 {
 	@Direction(command="Go West")
 	private Room5 west;

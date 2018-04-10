@@ -4,7 +4,7 @@ import anno.*;
 import java.util.*;
 
 @CheckEnter
-public class Room7 extends Room
+public class Room7
 {
 	@Direction(command="Go North")
 	private Room6 north;
