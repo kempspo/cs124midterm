@@ -17,6 +17,18 @@ public class Player
 		}
 	}
 	
+	public void useItem(String item)
+	{
+		if(inventory.containsKey(item))
+		{
+			inventory.
+		}
+		else
+		{
+			System.out.println("You're not carrying a " + item + " in your inventory.");
+		}
+	}
+	
 	public void dropItem(String item)
 	{
 		if(inventory.containsKey(item))
