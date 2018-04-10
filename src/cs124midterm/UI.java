@@ -1,20 +1,20 @@
 package cs124midterm;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
 
 public class UI extends JFrame
 {
-
 	String output,inventory, input;
 	PrintWriter printer;
 
 	private JLabel topLabel;
 
-	private JTextArea textArea, textArea2;
+	public JTextArea textArea = new JTextArea();
+	public JTextArea textArea2 = new JTextArea();
 
 	private JTextField textField;
 
@@ -68,12 +68,16 @@ public class UI extends JFrame
 	 */
 	public void createTextArea()
 	{
-			textArea = new JTextArea();
 			scrollPane = new JScrollPane(textArea); 
 			textArea.setEditable(false);
 			output = "";
 			textArea.setText(output);
 			centerArea.add(scrollPane);
+	}
+	
+	public void setTextArea(String s)
+	{
+		textArea.setText(s);
 	}
 
 	/**
@@ -81,7 +85,6 @@ public class UI extends JFrame
 	 */
 	public void createInventoryArea()
 	{
-		 textArea2 = new JTextArea(25,20);
 		 textArea2.setEditable(false);
 		 inventory = "";
 		 String stand = "INVENTORY";
@@ -187,4 +190,5 @@ public class UI extends JFrame
     {
         printer.close();
     }
+	
 }

@@ -26,4 +26,8 @@ public class Room2 extends Room
 			+ " There's a bunch of pots and pans. You may use command 'take pan'";
 	}
 
+	public String takeItem()
+	{
+		return "You have taken a pan.";
+	}
 }
