@@ -10,12 +10,12 @@ public class Room1 extends Room
 
   public String getDescription()
   {
-	   return "You wake up. You're on the floor. Your head's throbbing. You can:";
+	   return "You wake up. You're on the floor. Your head's throbbing. You can:\n";
   }
 
   @Command(command="look")
   public String look()
   {
-    return "There's nothing here move on";
+    return "There's nothing here move on\n";
   }
 }
