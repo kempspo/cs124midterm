@@ -1,20 +1,23 @@
 package room;
 
 import anno.*;
+import cs124midterm.*;
 import java.util.*;
 
-public class Room9
+public class Room9 implements Room
 {
+	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	
 	@Direction(command="Go North")
 	private Room8 north;
 	@Direction(command="Go West")
 	private Room10 west;
 
-  public String getDescription()
-  {
-	   return "You see a man in white. "
-     + "He's about to throw something into a pot.";
-  }
+	public String getDescription()
+	{
+		return "You see a man in white. "
+		+ "He's about to throw something into a pot.";
+	}
 
 	@Command(command="look")
 	public String look()
@@ -23,4 +26,35 @@ public class Room9
     +  "It's your brother.";
 	}
 
+	public boolean hasItem(String item)
+	{
+		if(itemsInRoom.containsKey(item))
+			return true;
+		else
+			return false;
+	}
+  
+	public String removeItem(String item, Player player)
+	{
+		if(hasItem(item))
+		{
+			String text = player.take(item, itemsInRoom.get(item));
+			itemsInRoom.remove(item);
+			return text;
+		}
+		else
+			return "There is no " + item + " anywhere around you.";
+	}
+  
+	public String addItem(String item, Player player)
+	{
+		if(player.hasItem(item))
+		{
+			itemsInRoom.put(item, player.inventory.get(item));
+			String text = player.drop(item);
+			return text;
+		}
+		else
+			return "You don't have a " + item + " in your inventory.";
+	}
 }

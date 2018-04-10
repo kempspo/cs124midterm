@@ -1,14 +1,13 @@
 package room;
 
 import java.util.*;
-import cs124midterm.Item;
+import cs124midterm.*;
 
 public interface Room 
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	public String getDescription();
 	public String look();
 	public boolean hasItem(String item);
-	public String addItem(String item);
-	public String removeItem(String item);
+	public String removeItem(String item, Player player);
+	public String addItem(String item, Player player);
 }
