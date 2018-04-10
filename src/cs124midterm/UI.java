@@ -39,6 +39,7 @@ public class UI extends JFrame
 		centerArea.setLayout(new FlowLayout());
 		centerPanel.add( centerArea );
 		createTextArea();
+		createInventoryArea();
 
 		bottomArea = new JPanel();
 		bottomArea.setLayout(new FlowLayout());
@@ -65,7 +66,7 @@ public class UI extends JFrame
 	 */
 	public void createTextArea()
 	{
-			textArea = new JTextArea();
+			textArea = new JTextArea(10,20);
 			textArea.setEditable(false);
 			output = "";
 			textArea.setText(output);

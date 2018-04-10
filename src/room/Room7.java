@@ -3,6 +3,7 @@ package room;
 import anno.*;
 import java.util.*;
 
+@CheckEnter
 public class Room7 extends Room
 {
 	@Direction(command="Go North")
@@ -15,10 +16,24 @@ public class Room7 extends Room
 	   return ".";
   }
 
-	@Command(command="look")
-	public String look()
-	{
-		return "";
-	}
+  @Command(command="look")
+  public String look()
+  {
+	  return "";
+  }
 
+  public static boolean canEnter() {
+	// if player has key
+	  	return true;
+	 // else
+	  	//return false
+  }
+
+  public static String enterMessage(){
+	  return "You got inside!";
+  }
+
+  public static String unableToEnterMessage(){
+	  return "You cannot go inside!";
+  }
 }
