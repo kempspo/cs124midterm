@@ -62,6 +62,7 @@ public class Room10 implements Room
             if(player.hasItem("knife"))
             {
                 System.out.println("That is correct. But you accidentally stabbed yourself and died. The End.");
+                player.setDead();
             }
             else
             {
@@ -73,6 +74,7 @@ public class Room10 implements Room
             System.out.println("That is incorrect. The men in white catch up to you. They tie you up and throw you into a\r\n" + 
             		"    boiling pot. You're dead. You're now a delicious steamed Dungeness crab.\r\n" + 
             		"The end.");
+            player.setDead();
         }
         
         return response;

@@ -24,6 +24,7 @@ public class UI extends JFrame
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
+	private Player player = new Player();;
 	
 	private JLabel topLabel;
 
@@ -118,6 +119,7 @@ public class UI extends JFrame
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				input = textField.getText();
+				execute(input);
 			}
 		});
 	}
@@ -203,9 +205,7 @@ public class UI extends JFrame
 			}
 		}
 		moveRight.addActionListener(new moveRightListener());
-		bottomPanel.add(moveRight);
-		
-		
+		bottomPanel.add(moveRight);	
 	}
 
     public void closer()
@@ -284,7 +284,7 @@ public class UI extends JFrame
 						Class<?> fieldClass = f.getType();
 						Object o = roomMap.get(fieldClass);
 						if(o instanceof EnterCondition /*o.toString().contains("ByteBuddy")*/){
-							if(((EnterCondition) o).canEnter()){
+							if(((EnterCondition) o).canEnter(player)){
 								setTextArea(((EnterCondition) o).enterMessage());
 								currentRoom = o.getClass().getSuperclass().newInstance();
 							}else setTextArea(((EnterCondition) o).unableToEnterMessage());
@@ -305,7 +305,7 @@ public class UI extends JFrame
 		try{
 			Method[] methods = clazz.getDeclaredMethods();
 			for(Method m : methods){
-				System.out.println(m);
+				//System.out.println(m);
 				if(m.isAnnotationPresent(Command.class)){
 					Command c = m.getAnnotation(Command.class);
 					if(command.contains(" ")){
@@ -316,8 +316,18 @@ public class UI extends JFrame
 								passIt.setAccessible(true);
 								passIt.invoke(roomMap.get(clazz), methodParams[1]);							
 							}
+							if(methodParams[0].equals("take")){
+								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
+							}	
+							if(methodParams[0].equals("drop")){
+								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1], player);							
+							}
 						}
-					}	
+					}
 					else{
 						if(c.command().equals(command)){
 							Method ex = clazz.getDeclaredMethod(command);

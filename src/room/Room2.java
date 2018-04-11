@@ -3,10 +3,13 @@ package room;
 import anno.*;
 import java.util.*;
 import cs124midterm.*;
+import items.*;
 
 public class Room2 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	Map<String, Item> itemsInRoom = new HashMap<String, Item>(); {
+		itemsInRoom.put("pan",new Pan());
+	}
 	
 	@Direction(command="south")
 	private Room1 south;
@@ -37,6 +40,7 @@ public class Room2 implements Room
 			return false;
 	}
   
+	@Command(command="take")
 	public String removeItem(String item, Player player)
 	{
 		if(hasItem(item))

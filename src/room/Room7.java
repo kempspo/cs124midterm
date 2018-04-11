@@ -59,23 +59,13 @@ public class Room7 implements Room
 			return "You don't have a " + item + " in your inventory.";
 	}
 
-	public static boolean canEnter() 
+	public static boolean canEnter(Player player) 
 	{
-	    if(canEnter == true) {
+	    if(player.hasItem("key")) {
 	    	return true;
 	    }
 	    else {
 	    	return false;
-	    }
-	}
-	
-	public static void check(Player player)
-	{
-	    if(player.hasItem("key")) {
-	    	canEnter = true;
-	    }
-	    else {
-	    	canEnter = false;
 	    }
 	}
 
