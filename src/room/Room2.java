@@ -41,7 +41,7 @@ public class Room2 implements Room
 	{
 		if(hasItem(item))
 		{
-			String text = player.takeItem(item, itemsInRoom.get(item));
+			String text = player.take(item, itemsInRoom.get(item));
 			itemsInRoom.remove(item);
 			return text;
 		}
@@ -54,7 +54,7 @@ public class Room2 implements Room
 		if(player.hasItem(item))
 		{
 			itemsInRoom.put(item, player.inventory.get(item));
-			String text = player.dropItem(item);
+			String text = player.drop(item);
 			return text;
 		}
 		else

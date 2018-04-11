@@ -6,7 +6,7 @@ import cs124midterm.*;
 
 public class Room3 implements Room
 {
-	Map<String, Item> itemsInInventory = new HashMap<String, Item>();
+	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
 	@Direction(command="Go South")
 	private Room5 south;

@@ -41,7 +41,7 @@ public class Room10 implements Room
 			return "There is no " + item + " anywhere around you.";
 	}
   
-	public String addItem(String item, Player p)
+	public String addItem(String item, Player player)
 	{
 		if(player.hasItem(item))
 		{

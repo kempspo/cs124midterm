@@ -5,15 +5,15 @@ import room.Room;
 
 public class Player 
 {
-	Map<String, Item> inventory = new HashMap<String, Item>();
+	public Map<String, Item> inventory = new HashMap<String, Item>();
 	
-	public String takeItem(String itemName, Item item)
+	public String take(String itemName, Item item)
 	{
 		inventory.put(itemName, item);
 		return "You took the " + item + " and placed it in your inventory.";
 	}
 
-	public String dropItem(String item)
+	public String drop(String item)
 	{
 		inventory.remove(item);
 		return "You dropped the " + item + " from your inventory.";

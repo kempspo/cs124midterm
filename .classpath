@@ -8,5 +8,11 @@
 	<classpathentry kind="lib" path="C:/Users/Kemp/Desktop/School/CS124/lab4/SimpleMazeRunner2/fast-classpath-scanner-2.0.11.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Kemp/Desktop/School/CS124/lab4/SimpleMazeRunner2/fast-classpath-scanner-2.0.11-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Kemp/Desktop/School/CS124/lab4/SimpleMazeRunner2/fast-classpath-scanner-2.0.11-sources.jar"/>
+	<classpathentry kind="lib" path="byte-buddy-1.6.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="byte-buddy-1.6.8-sources.jar"/>
+	<classpathentry kind="lib" path="byte-buddy-1.6.8.jar"/>
+	<classpathentry kind="lib" path="fast-classpath-scanner-2.0.11-javadoc.jar"/>
+	<classpathentry kind="lib" path="fast-classpath-scanner-2.0.11-sources.jar"/>
+	<classpathentry kind="lib" path="fast-classpath-scanner-2.0.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
