@@ -1,4 +1,2 @@
 You went north
 You went west
-You went south
-You went east

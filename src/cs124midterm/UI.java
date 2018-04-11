@@ -3,9 +3,11 @@ package cs124midterm;
 import javax.swing.*;
 
 import anno.CheckEnter;
+import anno.Command;
 import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
+import cs124midterm.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -293,5 +295,41 @@ public class UI extends JFrame
 				}
 			}
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public void execute(String command){
+		Class<? extends Object> clazz = currentRoom.getClass();
+		if(currentRoom instanceof EnterCondition) {
+			clazz = clazz.getSuperclass();
+		}
+		try{
+			Method[] methods = clazz.getDeclaredMethods();
+			for(Method m : methods){
+				System.out.println(m);
+				if(m.isAnnotationPresent(Command.class)){
+					Command c = m.getAnnotation(Command.class);
+					if(command.contains(" ")){
+						String[] methodParams = command.split(" ");
+						if(c.command().equals(methodParams[0])){
+							if(methodParams[0].equals("password")){
+								Method passIt = clazz.getDeclaredMethod("password", String.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1]);							
+							}
+						}
+					}	
+					else{
+						if(c.command().equals(command)){
+							Method ex = clazz.getDeclaredMethod(command);
+							ex.setAccessible(true);
+							ex.invoke(roomMap.get(clazz));
+						}
+					}
+				}
+			}
+		}catch(Exception e){
+			System.out.println("You can't do this.");
+			System.out.println(e);
+		}
 	}
 }

@@ -10,7 +10,7 @@ public class Room4 implements Room
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
 	@Direction(command="west")
-	private Room3 west;
+	private Room2 west;
 
 	public String getDescription()
 	{

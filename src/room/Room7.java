@@ -69,9 +69,9 @@ public class Room7 implements Room
 	    }
 	}
 	
-	public static void check(String item, Player player)
+	public static void check(Player player)
 	{
-	    if(player.hasItem(item)) {
+	    if(player.hasItem("key")) {
 	    	canEnter = true;
 	    }
 	    else {
