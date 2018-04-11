@@ -1,8 +1,9 @@
 package room;
 
 import anno.*;
-import java.util.*;
 import cs124midterm.*;
+import items.*;
+import java.util.*;
 
 public class Room3 implements Room
 {

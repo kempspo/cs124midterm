@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 import cs124midterm.*;
-
+import items.*;
 import java.util.*;
 
 @CheckEnter

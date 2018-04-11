@@ -2,12 +2,16 @@ package room;
 
 import anno.*;
 import cs124midterm.*;
-
+import items.*;
 import java.util.*;
 
 public class Room4 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	{
+		itemsInRoom.put("key", new Key());
+	}
+	
 	
 	@Direction(command="Go West")
 	private Room3 west;

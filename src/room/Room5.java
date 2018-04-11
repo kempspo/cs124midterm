@@ -2,7 +2,7 @@ package room;
 
 import anno.*;
 import cs124midterm.*;
-
+import items.*;
 import java.util.*;
 
 public class Room5 implements Room

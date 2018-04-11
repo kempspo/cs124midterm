@@ -1,7 +1,9 @@
 package cs124midterm;
 
+import anno.*;
+import cs124midterm.*;
+import items.*;
 import java.util.*;
-import room.Room;
 
 public class Player 
 {
