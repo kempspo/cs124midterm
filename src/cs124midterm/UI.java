@@ -341,19 +341,19 @@ public class UI extends JFrame
 								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String take = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
-								setTextArea(take);
+								setTextArea(take + "\n");
 							}	
 							if(methodParams[0].equals("drop")){
 								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String drop = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
-								setTextArea(drop);
+								setTextArea(drop+ "\n");
 							}
 							if(methodParams[0].equals("use")){
 								Method passIt = clazz.getDeclaredMethod("useItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
-								setTextArea(use);
+								setTextArea(use+ "\n");
 							}
 						}
 					}
@@ -362,7 +362,7 @@ public class UI extends JFrame
 							Method ex = clazz.getDeclaredMethod(command);
 							ex.setAccessible(true);
 							String some = (String) ex.invoke(roomMap.get(clazz));
-							setTextArea(some);
+							setTextArea(some+ "\n");
 						}
 					}
 				}
@@ -386,7 +386,7 @@ public class UI extends JFrame
 			for(Method m : methods){
 				if(m.isAnnotationPresent(Command.class)){
 					Command c = m.getAnnotation(Command.class);
-					setTextArea(m.getName() + "\n");
+					setTextArea(c.command() + "\n");
 				}
 			}
 			for(Field f: fields) {
