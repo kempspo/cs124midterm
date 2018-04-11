@@ -60,4 +60,21 @@ public class Room9 implements Room
 		else
 			return "You don't have a " + item + " in your inventory.";
 	}
+	
+	@Command(command="use")
+	public String useItem(String item, Player player)
+	{
+		if(player.hasItem(item))
+		{
+			String text ="";
+			if(item == "knife")
+				text = "Don't kill that's bad";
+			else if(item == "pan")
+				text = "You knocked him out.";
+			return text;
+		}
+		else
+			return "You don't have a " + item + " in your inventory.";
+	
+	}
 }
