@@ -1,16 +1,5 @@
 package cs124midterm;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-
-import anno.CheckEnter;
-import anno.Direction;
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
-import cs124midterm.*;
-
 public class Main
 {
 

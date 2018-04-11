@@ -125,7 +125,7 @@ public class UI extends JFrame
 	 *	- Go North, South, East, West
 	 *	-
 	 */
-	public void createButtons()
+	public void createButtons() 
 	{
 		JButton moveUp = new JButton("Go North");
 		class moveUpListener implements ActionListener
@@ -134,10 +134,13 @@ public class UI extends JFrame
 			{
 				printer.println("You went north");
 				output = "You went north. \n";
-				printer.println(); // current room
-				output += "something \n"; // current room
-
-				setTextArea(output);
+				try {
+					move("north");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				printer.flush();
 			}
 		}
@@ -185,10 +188,13 @@ public class UI extends JFrame
 			{
 				printer.println("You went east");
 				output = "You went east. \n";
-				printer.println(); // current room
-				output += "something \n"; // current room
-
-				setTextArea(output);
+				try {
+					printDescription();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				printer.flush();
 			}
 		}

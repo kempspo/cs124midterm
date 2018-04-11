@@ -18,4 +18,12 @@ public class Player
 		inventory.remove(item);
 		return "You dropped the " + item + " from your inventory.";
 	}
+	
+	public boolean hasItem(String item)
+	{
+		if(inventory.containsKey(item))
+			return true;
+		else
+			return false;
+	}
 }
