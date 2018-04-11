@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Room1
 {
-	@Direction(command="Go North")
+	@Direction(command="north")
 	private Room2 north;
 
   public String getDescription()

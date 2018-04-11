@@ -8,9 +8,9 @@ public class Room8 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
-	@Direction(command="Go East")
+	@Direction(command="east")
 	private Room7 east;
-	@Direction(command="Go South")
+	@Direction(command="south")
 	private Room9 south;
 
 	public String getDescription()

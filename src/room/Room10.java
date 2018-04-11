@@ -6,8 +6,7 @@ import cs124midterm.*;
 import java.util.*;
 
 public class Room10 implements Room
-{
-
+{	
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
 	public String getDescription()
@@ -16,9 +15,10 @@ public class Room10 implements Room
 		+ "Enter the password on the keypad.";
 	}
   
+	@Command(command="look")
 	public String look()
 	{
-	  
+		return "It's only the keypad.";
 	}
   
 	public boolean hasItem(String item)
@@ -52,4 +52,5 @@ public class Room10 implements Room
 		else
 			return "You don't have a " + item + " in your inventory.";
 	}
+	
 }

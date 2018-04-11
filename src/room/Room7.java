@@ -10,9 +10,9 @@ public class Room7 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
-	@Direction(command="Go North")
+	@Direction(command="north")
 	private Room6 north;
-	@Direction(command="Go West")
+	@Direction(command="west")
 	private Room8 west;
 
 	public String getDescription()
@@ -60,9 +60,13 @@ public class Room7 implements Room
 
 	public static boolean canEnter() 
 	{
-	// if player has key return true;
-	 // else
-	  	//return false
+	    /*if(player.hasItem(item)) {
+	    	return true;
+	    }
+	    else {
+	    	return false;
+	    }*/
+		return false;
 	}
 
 	public static String enterMessage()
