@@ -9,6 +9,7 @@ import java.util.*;
 public class Room7 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	static boolean canEnter = false;
 	
 	@Direction(command="north")
 	private Room6 north;
@@ -60,13 +61,22 @@ public class Room7 implements Room
 
 	public static boolean canEnter() 
 	{
-	    /*if(player.hasItem(item)) {
+	    if(canEnter == true) {
 	    	return true;
 	    }
 	    else {
 	    	return false;
-	    }*/
-		return false;
+	    }
+	}
+	
+	public static void check(String item, Player player)
+	{
+	    if(player.hasItem(item)) {
+	    	canEnter = true;
+	    }
+	    else {
+	    	canEnter = false;
+	    }
 	}
 
 	public static String enterMessage()
