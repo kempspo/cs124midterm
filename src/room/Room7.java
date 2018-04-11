@@ -35,7 +35,6 @@ public class Room7 implements Room
 			return false;
 	}
   
-	@Command(command="take")
 	public String removeItem(String item, Player player)
 	{
 		if(hasItem(item))
@@ -48,7 +47,6 @@ public class Room7 implements Room
 			return "There is no " + item + " anywhere around you.";
 	}
   
-	@Command(command="drop")
 	public String addItem(String item, Player player)
 	{
 		if(player.hasItem(item))

@@ -95,11 +95,6 @@ public class UI extends JFrame
 		textArea.append(s);
 	}
 
-	public void setInventory(String s)
-	{
-		textArea2.setText(s);
-	}
-	
 	/**
 	 * Creates inventory text area
 	 */
@@ -211,23 +206,6 @@ public class UI extends JFrame
 		}
 		moveRight.addActionListener(new moveRightListener());
 		bottomPanel.add(moveRight);	
-		
-		JButton help = new JButton("Help");
-		class helpListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				try {
-					help();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-				printer.flush();
-			}
-		}
-		help.addActionListener(new helpListener());
-		bottomPanel.add(help);	
 	}
 
     public void closer()
@@ -327,6 +305,7 @@ public class UI extends JFrame
 		try{
 			Method[] methods = clazz.getDeclaredMethods();
 			for(Method m : methods){
+				System.out.println(m);
 				if(m.isAnnotationPresent(Command.class)){
 					Command c = m.getAnnotation(Command.class);
 					if(command.contains(" ")){
@@ -358,6 +337,10 @@ public class UI extends JFrame
 							}
 						}
 					}
+					else if(command == "help") {
+						
+						//setTextArea(mm);
+					}
 					else{
 						if(c.command().equals(command)){
 							Method ex = clazz.getDeclaredMethod(command);
@@ -370,34 +353,6 @@ public class UI extends JFrame
 			}
 		}catch(Exception e){
 			System.out.println("You can't do that.");
-			System.out.println(e);
-		}
-	}
-	
-	public void help()
-	{
-		Class<? extends Object> clazz = currentRoom.getClass();
-		if(currentRoom instanceof EnterCondition) {
-			clazz = clazz.getSuperclass();
-		}
-		try{
-			setTextArea("Available Commands/Directions:\n");
-			Field[] fields = clazz.getDeclaredFields();
-			Method[] methods = clazz.getDeclaredMethods();
-			for(Method m : methods){
-				if(m.isAnnotationPresent(Command.class)){
-					Command c = m.getAnnotation(Command.class);
-					setTextArea(m.getName() + "\n");
-				}
-			}
-			for(Field f: fields) {
-				if(f.isAnnotationPresent(Direction.class)) {
-					Direction d = f.getAnnotation(Direction.class);
-					setTextArea(f.getName() + "\n");
-				}
-			}
-		}catch(Exception e){
-			System.out.println("Something went wrong.");
 			System.out.println(e);
 		}
 	}
