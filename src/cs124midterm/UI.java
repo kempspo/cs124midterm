@@ -137,7 +137,6 @@ public class UI extends JFrame
 				try {
 					move("north");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -154,10 +153,12 @@ public class UI extends JFrame
 			{
 				printer.println("You went south");
 				output = "You went south. \n";
-				printer.println(); // current room
-				output += "something \n"; // current room
-
-				setTextArea(output);
+				try {
+					move("south");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				printer.flush();
 			}
 		}
@@ -171,10 +172,12 @@ public class UI extends JFrame
 			{
 				printer.println("You went west");
 				output = "You went west. \n";
-				printer.println(); // current room
-				output += "something \n"; // current room
-
-				setTextArea(output);
+				try {
+					move("west");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				printer.flush();
 			}
 		}
@@ -189,9 +192,8 @@ public class UI extends JFrame
 				printer.println("You went east");
 				output = "You went east. \n";
 				try {
-					printDescription();
+					move("east");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
