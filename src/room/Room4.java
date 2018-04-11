@@ -13,12 +13,12 @@ public class Room4 implements Room
 	}
 	
 	
-	@Direction(command="Go West")
-	private Room3 west;
+	@Direction(command="west")
+	private Room2 west;
 
 	public String getDescription()
 	{
-		return "The room's pretty empty. Just a bunch of chairs and tables.";
+		return "You are now in Room 4 \nThe room's pretty empty. Just a bunch of chairs and tables.";
 	}
 
 	@Command(command="look")

@@ -44,11 +44,11 @@ Companions don't do anything in this game. *
 <Room4>
 * The room's pretty empty. Just a bunch of chairs and tables. *
 - Look around
-- Go West [Room3]
+- Go West [Room2]
 
 * You look around and find a set of keys on the rack *
 - Take keys //update Inventory
-- Go West [Room3]
+- Go West [Room2]
 
 <Room5>
 * You enter the room. There's a rack of knives*

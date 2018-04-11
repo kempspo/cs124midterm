@@ -9,14 +9,14 @@ public class Room6 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
-	@Direction(command="Go West")
+	@Direction(command="west")
 	private Room5 west;
-	@Direction(command="Go South")
+	@Direction(command="south")
 	private Room7 south;
 
 	public String getDescription()
   	{
-		return "The room is full of trash.";
+		return "You are now in Room 6 \nThe room is full of trash.";
   	}
 
 	@Command(command="look")

@@ -3,9 +3,11 @@ package cs124midterm;
 import javax.swing.*;
 
 import anno.CheckEnter;
+import anno.Command;
 import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
+import cs124midterm.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -22,6 +24,7 @@ public class UI extends JFrame
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
+	private Player player = new Player();;
 	
 	private JLabel topLabel;
 
@@ -116,6 +119,7 @@ public class UI extends JFrame
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				input = textField.getText();
+				execute(input);
 			}
 		});
 	}
@@ -201,9 +205,7 @@ public class UI extends JFrame
 			}
 		}
 		moveRight.addActionListener(new moveRightListener());
-		bottomPanel.add(moveRight);
-		
-		
+		bottomPanel.add(moveRight);	
 	}
 
     public void closer()
@@ -265,7 +267,7 @@ public class UI extends JFrame
 		}
 		Method m = c.getDeclaredMethod("getDescription");
 		String description = (String) m.invoke(roomMap.get(c));
-		setTextArea(description);
+		setTextArea(description + "\n");
 	}
 	
 	public void move(String direction) throws Exception{
@@ -282,7 +284,7 @@ public class UI extends JFrame
 						Class<?> fieldClass = f.getType();
 						Object o = roomMap.get(fieldClass);
 						if(o instanceof EnterCondition /*o.toString().contains("ByteBuddy")*/){
-							if(((EnterCondition) o).canEnter()){
+							if(((EnterCondition) o).canEnter(player)){
 								setTextArea(((EnterCondition) o).enterMessage());
 								currentRoom = o.getClass().getSuperclass().newInstance();
 							}else setTextArea(((EnterCondition) o).unableToEnterMessage());
@@ -293,5 +295,51 @@ public class UI extends JFrame
 				}
 			}
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public void execute(String command){
+		Class<? extends Object> clazz = currentRoom.getClass();
+		if(currentRoom instanceof EnterCondition) {
+			clazz = clazz.getSuperclass();
+		}
+		try{
+			Method[] methods = clazz.getDeclaredMethods();
+			for(Method m : methods){
+				//System.out.println(m);
+				if(m.isAnnotationPresent(Command.class)){
+					Command c = m.getAnnotation(Command.class);
+					if(command.contains(" ")){
+						String[] methodParams = command.split(" ");
+						if(c.command().equals(methodParams[0])){
+							if(methodParams[0].equals("password")){
+								Method passIt = clazz.getDeclaredMethod("password", String.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1]);							
+							}
+							if(methodParams[0].equals("take")){
+								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
+							}	
+							if(methodParams[0].equals("drop")){
+								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
+								passIt.setAccessible(true);
+								passIt.invoke(roomMap.get(clazz), methodParams[1], player);							
+							}
+						}
+					}
+					else{
+						if(c.command().equals(command)){
+							Method ex = clazz.getDeclaredMethod(command);
+							ex.setAccessible(true);
+							ex.invoke(roomMap.get(clazz));
+						}
+					}
+				}
+			}
+		}catch(Exception e){
+			System.out.println("You can't do this.");
+			System.out.println(e);
+		}
 	}
 }

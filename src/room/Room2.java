@@ -3,23 +3,26 @@ package room;
 import anno.*;
 import java.util.*;
 import cs124midterm.*;
+import items.*;
 
 public class Room2 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	Map<String, Item> itemsInRoom = new HashMap<String, Item>(); {
+		itemsInRoom.put("pan",new Pan());
+	}
 	
-	@Direction(command="Go South")
+	@Direction(command="south")
 	private Room1 south;
-	@Direction(command="Go West")
+	@Direction(command="west")
 	private Room3 west;
-	@Direction(command="Go East")
+	@Direction(command="east")
 	private Room4 east;
 
 	public String getDescription()
 	{
-		return "You hear screams from an adjacent room,"
-		+ "but there are 2 other doors and you don't know from"
-		+ "which it came from.";
+		return "You are now in Room 2. \nYou hear screams from an adjacent room,"
+		+ " but there are 2 other doors and you don't know from"
+		+ " which it came from.";
 	}
 
 	@Command(command="look")
@@ -37,6 +40,7 @@ public class Room2 implements Room
 			return false;
 	}
   
+	@Command(command="take")
 	public String removeItem(String item, Player player)
 	{
 		if(hasItem(item))

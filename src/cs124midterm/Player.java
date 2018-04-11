@@ -8,6 +8,7 @@ import java.util.*;
 public class Player 
 {
 	public Map<String, Item> inventory = new HashMap<String, Item>();
+	public boolean alive = true;
 	
 	public String take(String itemName, Item item)
 	{
@@ -27,5 +28,13 @@ public class Player
 			return true;
 		else
 			return false;
+	}
+	
+	public boolean getAlive() {
+		return alive;
+	}
+	
+	public void setDead() {
+		alive = false;
 	}
 }

@@ -9,21 +9,22 @@ import java.util.*;
 public class Room7 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	static boolean canEnter = false;
 	
-	@Direction(command="Go North")
+	@Direction(command="north")
 	private Room6 north;
-	@Direction(command="Go West")
+	@Direction(command="west")
 	private Room8 west;
 
 	public String getDescription()
 	{
-		return ".";
+		return "You are now in Room 7 \nNot much here";
 	}
 
 	@Command(command="look")
 	public String look()
 	{
-		return "";
+		return "There's nothing of use.";
 	}
 	
 	public boolean hasItem(String item)
@@ -58,11 +59,14 @@ public class Room7 implements Room
 			return "You don't have a " + item + " in your inventory.";
 	}
 
-	public static boolean canEnter() 
+	public static boolean canEnter(Player player) 
 	{
-	// if player has key return true;
-	 // else
-	  	//return false
+	    if(player.hasItem("key")) {
+	    	return true;
+	    }
+	    else {
+	    	return false;
+	    }
 	}
 
 	public static String enterMessage()
