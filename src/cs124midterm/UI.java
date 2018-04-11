@@ -329,6 +329,12 @@ public class UI extends JFrame
 								String drop = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
 								setTextArea(drop);
 							}
+							if(methodParams[0].equals("use")){
+								Method passIt = clazz.getDeclaredMethod("useItem", String.class, Player.class);
+								passIt.setAccessible(true);
+								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
+								setTextArea(use);
+							}
 						}
 					}
 					else if(command == "help") {
@@ -339,13 +345,14 @@ public class UI extends JFrame
 						if(c.command().equals(command)){
 							Method ex = clazz.getDeclaredMethod(command);
 							ex.setAccessible(true);
-							ex.invoke(roomMap.get(clazz));
+							String some = (String) ex.invoke(roomMap.get(clazz));
+							setTextArea(some);
 						}
 					}
 				}
 			}
 		}catch(Exception e){
-			System.out.println("You can't do this.");
+			System.out.println("You can't do that.");
 			System.out.println(e);
 		}
 	}

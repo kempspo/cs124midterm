@@ -22,9 +22,9 @@ public class Room6 implements Room
 	@Command(command="look")
 	public String look()
 	{
-		return "";
+		return "You're trash.";
 	}
-
+	
 	public boolean hasItem(String item)
 	{
 		if(itemsInRoom.containsKey(item))
