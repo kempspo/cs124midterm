@@ -18,13 +18,13 @@ public class Room7 implements Room
 
 	public String getDescription()
 	{
-		return ".";
+		return "You are now in Room 7 \nNot much here";
 	}
 
 	@Command(command="look")
 	public String look()
 	{
-		return "";
+		return "There's nothing of use.";
 	}
 	
 	public boolean hasItem(String item)

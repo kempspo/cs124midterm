@@ -10,7 +10,7 @@ public class Room1
 
   public String getDescription()
   {
-	   return "You wake up. You're on the floor. Your head's throbbing. You can:\n";
+	   return "You are now in Room 1 \nYou wake up. You're on the floor. Your head's throbbing. You can:";
   }
 
   @Command(command="look")

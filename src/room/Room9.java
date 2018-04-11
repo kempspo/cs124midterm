@@ -15,7 +15,7 @@ public class Room9 implements Room
 
 	public String getDescription()
 	{
-		return "You see a man in white. "
+		return "You are now in Room 9 \nYou see a man in white. "
 		+ "He's about to throw something into a pot.";
 	}
 

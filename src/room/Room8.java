@@ -15,7 +15,7 @@ public class Room8 implements Room
 
 	public String getDescription()
 	{
-		return "It's all condiments here. There's some salt, pepper, "
+		return "You are now in Room 8 \nIt's all condiments here. There's some salt, pepper, "
 		+ "some other stuff I don't really know.";
 	}
 

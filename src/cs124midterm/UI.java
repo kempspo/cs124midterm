@@ -265,7 +265,7 @@ public class UI extends JFrame
 		}
 		Method m = c.getDeclaredMethod("getDescription");
 		String description = (String) m.invoke(roomMap.get(c));
-		setTextArea(description);
+		setTextArea(description + "\n");
 	}
 	
 	public void move(String direction) throws Exception{

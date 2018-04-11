@@ -15,7 +15,7 @@ public class Room3 implements Room
 
 	public String getDescription()
 	{
-		return "You enter the room. You see a girl tied up on the table.";
+		return "You are now in Room 3 \nYou enter the room. You see a girl tied up on the table.";
 	}
 
 	@Command(command="look")

@@ -11,7 +11,7 @@ public class Room10 implements Room
 	
 	public String getDescription()
 	{
-		return "You see a door locked via keypad. "
+		return "You are now in Room 10 \nYou see a door locked via keypad. "
 		+ "Enter the password on the keypad.";
 	}
   

@@ -17,7 +17,7 @@ public class Room2 implements Room
 
 	public String getDescription()
 	{
-		return "You hear screams from an adjacent room,"
+		return "You are now in Room 2. \nYou hear screams from an adjacent room,"
 		+ " but there are 2 other doors and you don't know from"
 		+ " which it came from.";
 	}
