@@ -27,6 +27,7 @@ public class Room4 implements Room
 		return "You look around and find a set of keys on the rack.";
 	}
 
+	@Command(command="take")
 	public boolean hasItem(String item)
 	{
 		if(itemsInRoom.containsKey(item))
@@ -35,6 +36,7 @@ public class Room4 implements Room
 			return false;
 	}
   
+	@Command(command="drop")
 	public String removeItem(String item, Player player)
 	{
 		if(hasItem(item))
