@@ -9,12 +9,12 @@ public class Room1
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	
-	@Direction(command="Go North")
+	@Direction(command="north")
 	private Room2 north;
 
 	public String getDescription()
 	{
-		return "You wake up. You're on the floor. Your head's throbbing. You can:\n";
+		return "You wake up. You're on the floor. Your head's throbbing. You can:";
 	}
 
 	@Command(command="look")

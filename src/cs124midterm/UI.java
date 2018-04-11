@@ -305,7 +305,7 @@ public class UI extends JFrame
 		try{
 			Method[] methods = clazz.getDeclaredMethods();
 			for(Method m : methods){
-				//System.out.println(m);
+				System.out.println(m);
 				if(m.isAnnotationPresent(Command.class)){
 					Command c = m.getAnnotation(Command.class);
 					if(command.contains(" ")){
@@ -314,19 +314,26 @@ public class UI extends JFrame
 							if(methodParams[0].equals("password")){
 								Method passIt = clazz.getDeclaredMethod("password", String.class);
 								passIt.setAccessible(true);
-								passIt.invoke(roomMap.get(clazz), methodParams[1]);							
+								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1]);		
+								setTextArea(pass);
 							}
 							if(methodParams[0].equals("take")){
 								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
 								passIt.setAccessible(true);
-								passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
+								String take = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
+								setTextArea(take);
 							}	
 							if(methodParams[0].equals("drop")){
 								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
 								passIt.setAccessible(true);
-								passIt.invoke(roomMap.get(clazz), methodParams[1], player);							
+								String drop = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
+								setTextArea(drop);
 							}
 						}
+					}
+					else if(command == "help") {
+						
+						//setTextArea(mm);
 					}
 					else{
 						if(c.command().equals(command)){
