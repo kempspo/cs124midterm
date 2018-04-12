@@ -16,14 +16,13 @@ public class Room3 implements Room
 
 	public String getDescription()
 	{
-		return "You are now in Room 3 \nYou enter the room. You see a girl tied up on the table.";
+		return "You are now in Room 3 \nYou enter the room. You see a body tied up on the table.";
 	}
 
 	@Command(command="look")
 	public String look()
 	{
-		return "You take a closer look around."
-		+ " The girl on the table is your friend.";
+		return "You take a closer look around. Nothing but the corpse in here.";
 	}
 
 	public boolean hasItem(String item)
