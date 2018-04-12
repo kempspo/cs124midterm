@@ -228,6 +228,23 @@ public class UI extends JFrame
 		}
 		help.addActionListener(new helpListener());
 		bottomPanel.add(help);	
+		
+		JButton inventory = new JButton("Inventory");
+		class inventoryListener implements ActionListener
+		{
+			public void actionPerformed( ActionEvent ae )
+			{
+				try {
+					setInventory(player.showInventory());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				printer.flush();
+			}
+		}
+		inventory.addActionListener(new inventoryListener());
+		bottomPanel.add(inventory);	
 	}
 
     public void closer()
@@ -400,4 +417,5 @@ public class UI extends JFrame
 			System.out.println(e);
 		}
 	}
+	
 }

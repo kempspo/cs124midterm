@@ -37,4 +37,20 @@ public class Player
 	public void setDead() {
 		alive = false;
 	}
+	
+	public String showInventory()
+	{
+		if(!inventory.isEmpty())
+		{
+			for(String key: inventory.keySet())
+			{
+				return key;
+			}
+		}
+		else 
+		{
+			return "Inventory is empty";
+		}
+		return null;
+	}
 }
