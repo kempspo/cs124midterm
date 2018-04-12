@@ -122,6 +122,7 @@ public class UI extends JFrame
 			public void actionPerformed( ActionEvent e ) {
 				input = textField.getText();
 				execute(input);
+				textField.setText("");
 			}
 		});
 	}

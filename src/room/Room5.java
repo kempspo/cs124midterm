@@ -8,6 +8,9 @@ import java.util.*;
 public class Room5 implements Room
 {
 	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	{
+		itemsInRoom.put("knife", new Key());
+	}
 	
 	@Direction(command="north")
 	private Room3 north;
