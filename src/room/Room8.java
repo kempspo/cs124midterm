@@ -23,7 +23,23 @@ public class Room8 implements Room
 	@Command(command="look")
 	public String look()
 	{
-		return "You find a piece of paper saying 'Password: 3,2,1'";
+		String output = "There's a bunch of salt spilled in the corner. Inscribed in it is 'Password: 3,2,1'. Who draws with salt?";
+		
+		if(!itemsInRoom.isEmpty())
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		
+		return output;
 	}
 
 	public boolean hasItem(String item)

@@ -7,7 +7,8 @@ import java.util.*;
 
 public class Room6 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private boolean cutTrash = false;
 	
 	@Direction(command="west")
 	private Room5 west;
@@ -22,7 +23,23 @@ public class Room6 implements Room
 	@Command(command="look")
 	public String look()
 	{
-		return "You're trash.";
+		String output = "There is a mirror in the room. You are one with the trash.";
+		
+		if(!itemsInRoom.isEmpty())
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		
+		return output;
 	}
 	
 	public boolean hasItem(String item)
@@ -53,6 +70,35 @@ public class Room6 implements Room
 		{
 			itemsInRoom.put(item, player.inventory.get(item));
 			String text = player.drop(item);
+			return text;
+		}
+		else
+			return "You don't have a " + item + " in your inventory.";
+	}
+	
+	@Command(command="use")
+	public String useItem(String item, Player player)
+	{
+		if(player.hasItem(item))
+		{
+			String text ="";
+			if(item.equals("knife"))
+			{
+				if(!cutTrash)
+				{
+					text = "In an episode of boredom, you begin cutting slips of paper with the knife. Just when you think this is pointless, you find a paper with 'Gen' scribbled on it.";
+					cutTrash = true;
+				}
+				else
+				{
+					text = "You continue where you left off. Definitely a worthwhile way to spend the time.";
+					cutTrash = true;
+				}
+			}
+			else if(item.equals("pan"))
+				text = "You put the slips of paper in the pan and pretend to cook.";
+			else
+				text = "That didn't do anything.";
 			return text;
 		}
 		else

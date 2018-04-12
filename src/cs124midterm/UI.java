@@ -20,12 +20,7 @@ import java.util.List;
 
 public class UI extends JFrame
 {
-<<<<<<< HEAD
-	String output,inventory, input;
-=======
-	private String inventory;
-	private PrintWriter printer;
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
+	String inventory;
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
@@ -148,12 +143,8 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-<<<<<<< HEAD
 
-=======
-				printer.println("You went north");
 				setTextArea("> go north\n");
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("north");
 					textField.requestFocus();
@@ -171,12 +162,8 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-<<<<<<< HEAD
 
-=======
-				printer.println("You went south");
 				setTextArea("> go south\n");
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("south");
 					textField.requestFocus();
@@ -194,12 +181,8 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-<<<<<<< HEAD
 
-=======
-				printer.println("You went west");
 				setTextArea("> go west\n");
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("west");
 					textField.requestFocus();
@@ -217,11 +200,8 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-<<<<<<< HEAD
-=======
-				printer.println("You went east");
+
 				setTextArea("> go east\n");
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("east");
 					textField.requestFocus();
@@ -385,9 +365,9 @@ public class UI extends JFrame
 						String[] methodParams = command.split(" ");
 						if(c.command().equals(methodParams[0])){
 							if(methodParams[0].equals("password")){
-								Method passIt = clazz.getDeclaredMethod("password", String.class);
+								Method passIt = clazz.getDeclaredMethod("password", String.class, Player.class);
 								passIt.setAccessible(true);
-								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1]);		
+								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
 								setTextArea(pass);
 								somethingHappened = true;
 							}
@@ -410,7 +390,7 @@ public class UI extends JFrame
 							if(methodParams[0].equals("use")){
 								Method passIt = clazz.getDeclaredMethod("useItem", String.class, Player.class);
 								passIt.setAccessible(true);
-								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
+								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);
 								setTextArea(use + "\n");
 								somethingHappened = true;
 							}

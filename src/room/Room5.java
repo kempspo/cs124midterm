@@ -25,7 +25,23 @@ public class Room5 implements Room
 	@Command(command="look")
 	public String look()
 	{
-		return "There's nothing except knives.";
+		String output = "There's nothing except knives.";
+		
+		if(!itemsInRoom.isEmpty())
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		
+		return output;
 	}
 
 	public boolean hasItem(String item)

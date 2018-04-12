@@ -7,9 +7,11 @@ import items.*;
 
 public class Room2 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>(); {
+	private Map<String, Item> itemsInRoom = new HashMap<String, Item>(); 
+	{
 		itemsInRoom.put("pan",new Pan());
 	}
+	private boolean beenHere = false;
 	
 	@Direction(command="south")
 	private Room1 south;
@@ -20,7 +22,13 @@ public class Room2 implements Room
 
 	public String getDescription()
 	{
-		return "You are now in Room 2. \nYou hear screams from an adjacent room, but there are 2 other doors to your left and right, and you don't know from which it came from.";
+		if(!beenHere)
+		{
+			beenHere = true;
+			return "You are now in Room 2. \nYou hear screams from an adjacent room, but there are 2 other doors to your left and right, and you don't know from which it came from.";
+		}
+		else
+			return "You are now in Room 2. Many many doors.";
 	}
 
 	@Command(command="look")
@@ -78,5 +86,4 @@ public class Room2 implements Room
 		else
 			return "You don't have a " + item + " in your inventory.";
 	}
-
 }

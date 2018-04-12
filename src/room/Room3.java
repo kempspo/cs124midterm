@@ -7,7 +7,8 @@ import java.util.*;
 
 public class Room3 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private boolean friendSaved = false;
 	
 	@Direction(command="south")
 	private Room5 south;
@@ -16,21 +17,23 @@ public class Room3 implements Room
 
 	public String getDescription()
 	{
-		return "You are now in Room 3 \nYou enter the room. You see a body tied up on the table.";
+		return "You are now in Room 3 \nYou enter the room. You see somebody tied up on the table.";
 	}
 
 	@Command(command="look")
 	public String look()
 	{
-<<<<<<< HEAD
-		return "You take a closer look around. Nothing but the corpse in here.";
-=======
-		String output = "You take a closer look around. The girl on the table is your friend.";
+		String output = "";
+		
+		if(!friendSaved)
+			output = "You take a closer look around. It's your friend. Sad.";
+		else
+			output = "It's the table your friend was tied up on. It says 'Ess'.";
 		
 		if(!itemsInRoom.isEmpty())
 		{
 			int temp = 1;
-			output = "Perhaps you can take the following items:\n";
+			output += "Perhaps you can take the following items:\n";
 			for(String key : itemsInRoom.keySet())
 			{
 				if(temp < itemsInRoom.size())
@@ -42,7 +45,6 @@ public class Room3 implements Room
 		}
 		
 		return output;
->>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 	}
 
 	public boolean hasItem(String item)
@@ -73,6 +75,33 @@ public class Room3 implements Room
 		{
 			itemsInRoom.put(item, player.inventory.get(item));
 			String text = player.drop(item);
+			return text;
+		}
+		else
+			return "You don't have a " + item + " in your inventory.";
+	}
+	
+	@Command(command="use")
+	public String useItem(String item, Player player)
+	{
+		if(player.hasItem(item))
+		{
+			String text ="";
+			if(!friendSaved)
+			{
+				if(item.equals("knife"))
+				{
+					text = "You cut your friend free using the knife. Underneath where she was is written " + "Ess.";
+					friendSaved = true;
+				}
+				else if(item.equals("pan"))
+				{
+					text = "You try to free your friend using the pan. You realize this is a stupid idea and you knock yourself out. You sustain a serious concussion and die. The End.";
+					player.setDead();
+				}
+			}
+			else
+				text = "That didn't do anything.";
 			return text;
 		}
 		else

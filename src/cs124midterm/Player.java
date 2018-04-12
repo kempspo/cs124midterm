@@ -38,6 +38,7 @@ public class Player
 		alive = false;
 	}
 	
+	
 	public String showInventory()
 	{
 		String output = "";
