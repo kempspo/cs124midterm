@@ -13,7 +13,7 @@ public class Player
 	public String take(String itemName, Item item)
 	{
 		inventory.put(itemName, item);
-		return "You took the " + item + " and placed it in your inventory.";
+		return "You took the " + itemName + " and placed it in your inventory.";
 	}
 
 	public String drop(String item)
@@ -40,17 +40,16 @@ public class Player
 	
 	public String showInventory()
 	{
+		String output = "";
+		
 		if(!inventory.isEmpty())
-		{
+		{			
 			for(String key: inventory.keySet())
 			{
-				return key;
+				output += key + "\n";
 			}
 		}
-		else 
-		{
-			return "Inventory is empty";
-		}
-		return null;
+
+		return output;
 	}
 }

@@ -22,7 +22,27 @@ public class Room3 implements Room
 	@Command(command="look")
 	public String look()
 	{
+<<<<<<< HEAD
 		return "You take a closer look around. Nothing but the corpse in here.";
+=======
+		String output = "You take a closer look around. The girl on the table is your friend.";
+		
+		if(!itemsInRoom.isEmpty())
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		
+		return output;
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 	}
 
 	public boolean hasItem(String item)

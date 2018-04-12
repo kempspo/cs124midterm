@@ -1,6 +1,7 @@
 package cs124midterm;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 import anno.CheckEnter;
 import anno.Command;
@@ -19,7 +20,12 @@ import java.util.List;
 
 public class UI extends JFrame
 {
+<<<<<<< HEAD
 	String output,inventory, input;
+=======
+	private String inventory;
+	private PrintWriter printer;
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
@@ -80,11 +86,12 @@ public class UI extends JFrame
 	 */
 	public void createTextArea()
 	{
-			scrollPane = new JScrollPane(textArea); 
-			textArea.setEditable(false);
-			output = "";
-			textArea.setText(output);
-			centerArea.add(scrollPane);
+		scrollPane = new JScrollPane(textArea); 
+		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		textArea.setEditable(false);
+		textArea.setText("");
+		centerArea.add(scrollPane);
 	}
 	
 	public void setTextArea(String s)
@@ -94,7 +101,7 @@ public class UI extends JFrame
 	
 	public void setInventory(String s)
 	{
-		textArea2.setText(s);
+		textArea2.setText("INVENTORY\n" + s);
 	}
 
 	/**
@@ -117,12 +124,14 @@ public class UI extends JFrame
 		textField = new JTextField(20);
 		bottomArea.add(new JLabel(" Input here: "));
 		bottomArea.add( textField );
+		textField.requestFocus();
 		
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
-				input = textField.getText();
-				execute(input);
+				setTextArea("> " + textField.getText() + "\n");
+				execute(textField.getText());
 				textField.setText("");
+				textField.requestFocus();
 			}
 		});
 	}
@@ -139,9 +148,15 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
+<<<<<<< HEAD
 
+=======
+				printer.println("You went north");
+				setTextArea("> go north\n");
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("north");
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -156,9 +171,15 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
+<<<<<<< HEAD
 
+=======
+				printer.println("You went south");
+				setTextArea("> go south\n");
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("south");
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -173,9 +194,15 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
+<<<<<<< HEAD
 
+=======
+				printer.println("You went west");
+				setTextArea("> go west\n");
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("west");
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -190,8 +217,14 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
+<<<<<<< HEAD
+=======
+				printer.println("You went east");
+				setTextArea("> go east\n");
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a
 				try {
 					move("east");
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -208,6 +241,7 @@ public class UI extends JFrame
 			{
 				try {
 					help();
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -224,6 +258,7 @@ public class UI extends JFrame
 			{
 				try {
 					setInventory(player.showInventory());
+					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -296,24 +331,42 @@ public class UI extends JFrame
 			clazz = clazz.getSuperclass();
 		}
 		try{
+			boolean somethingHappened = false;
 			Field[] fields = clazz.getDeclaredFields();		
-			for (Field f : fields){
-				if (f.isAnnotationPresent(Direction.class)){
+			for (Field f : fields)
+			{
+				if (f.isAnnotationPresent(Direction.class))
+				{
 					Direction d = f.getAnnotation(Direction.class);
 					if (d.command().equals(direction)){
 						Class<?> fieldClass = f.getType();
 						Object o = roomMap.get(fieldClass);
-						if(o instanceof EnterCondition /*o.toString().contains("ByteBuddy")*/){
-							if(((EnterCondition) o).canEnter(player)){
+						if(o instanceof EnterCondition /*o.toString().contains("ByteBuddy")*/)
+						{
+							if(((EnterCondition) o).canEnter(player))
+							{
 								setTextArea(((EnterCondition) o).enterMessage());
 								currentRoom = o.getClass().getSuperclass().newInstance();
-							}else setTextArea(((EnterCondition) o).unableToEnterMessage());
-						}else currentRoom = o;
+								somethingHappened = true;
+							}
+							else
+							{
+								setTextArea(((EnterCondition) o).unableToEnterMessage());
+								somethingHappened = true;
+							}
+						}
+						else
+						{
+							currentRoom = o;
+							somethingHappened = true;
+						}
 						printDescription();
 						break;
 					}
 				}
 			}
+			if(!somethingHappened)
+				setTextArea("You can't go that way.\n");
 		}catch(Exception e){e.printStackTrace();}
 	}
 	
@@ -323,6 +376,7 @@ public class UI extends JFrame
 			clazz = clazz.getSuperclass();
 		}
 		try{
+			boolean somethingHappened = false;
 			Method[] methods = clazz.getDeclaredMethods();
 			for(Method m : methods){
 				if(m.isAnnotationPresent(Command.class)){
@@ -335,24 +389,30 @@ public class UI extends JFrame
 								passIt.setAccessible(true);
 								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1]);		
 								setTextArea(pass);
+								somethingHappened = true;
 							}
 							if(methodParams[0].equals("take")){
 								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String take = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
 								setTextArea(take + "\n");
+								setInventory(player.showInventory());
+								somethingHappened = true;
 							}	
 							if(methodParams[0].equals("drop")){
 								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String drop = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
-								setTextArea(drop+ "\n");
+								setTextArea(drop + "\n");
+								setInventory(player.showInventory());
+								somethingHappened = true;
 							}
 							if(methodParams[0].equals("use")){
 								Method passIt = clazz.getDeclaredMethod("useItem", String.class, Player.class);
 								passIt.setAccessible(true);
 								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
-								setTextArea(use+ "\n");
+								setTextArea(use + "\n");
+								somethingHappened = true;
 							}
 						}
 					}
@@ -361,13 +421,15 @@ public class UI extends JFrame
 							Method ex = clazz.getDeclaredMethod(command);
 							ex.setAccessible(true);
 							String some = (String) ex.invoke(roomMap.get(clazz));
-							setTextArea(some+ "\n");
+							setTextArea(some + "\n");
+							somethingHappened = true;
 						}
 					}
 				}
 			}
+			if(!somethingHappened)
+				setTextArea("You can't do that.\n");
 		}catch(Exception e){
-			System.out.println("You can't do that.");
 			System.out.println(e);
 		}
 	}

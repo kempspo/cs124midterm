@@ -73,11 +73,11 @@ public class Room7 implements Room
 
 	public static String enterMessage()
 	{
-		return "You got inside!";
+		return "You got inside!\n";
 	}
 
 	public static String unableToEnterMessage()
 	{
-		return "You cannot go inside!";
+		return "You cannot go inside!\n";
 	}
 }

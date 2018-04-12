@@ -24,7 +24,27 @@ public class Room4 implements Room
 	@Command(command="look")
 	public String look()
 	{
-		return "You look around and find a set of keys on the rack.";
+		String output;
+		
+		if(itemsInRoom.containsKey("key"))
+			output = "You look around and find a set of keys on the rack.";
+		else
+			output = "You look around and see an empty key rack.";
+			
+		if(!itemsInRoom.isEmpty())
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		return output;
 	}
 
 	@Command(command="take")

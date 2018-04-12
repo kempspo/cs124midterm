@@ -1,5 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 You went north
 You went south
 =======
 >>>>>>> 1f08096abe30f1dce9d42366e37de24c95644b21
+=======
+You went north
+You went west
+You went south
+You went south
+You went east
+You went south
+>>>>>>> 4e84fccc17131f7f7d5f96ac93253e2768055b6a

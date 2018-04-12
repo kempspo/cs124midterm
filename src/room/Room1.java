@@ -7,20 +7,44 @@ import java.util.*;
 
 public class Room1
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private boolean beenHereBefore = false;
 	
 	@Direction(command="north")
 	private Room2 north;
 
 	public String getDescription()
 	{
-		return "You wake up. You're on the floor. Your head's throbbing. You can:";
+		if(!beenHereBefore)
+		{
+			beenHereBefore = true;
+			return "You wake up. You're on the floor. Your head's throbbing. Maybe you should 'look' around.";
+		}
+		else
+			return "You are back where you started.\nYou still can't remember how you ended up here.";
 	}
 
 	@Command(command="look")
 	public String look()
 	{
-		return "There's nothing here move on\n";
+		String output = "";
+		if(itemsInRoom.isEmpty())
+			output = "There's nothing here move on.";
+		else
+		{
+			int temp = 1;
+			output = "Perhaps you can take the following items:\n";
+			for(String key : itemsInRoom.keySet())
+			{
+				if(temp < itemsInRoom.size())
+					output += key + "\n";
+				else
+					output += key;
+				temp++;
+			}
+		}
+		
+		return output;
 	}
 	
 	public boolean hasItem(String item)
