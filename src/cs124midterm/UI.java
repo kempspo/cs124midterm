@@ -20,7 +20,6 @@ import java.util.List;
 public class UI extends JFrame
 {
 	String output,inventory, input;
-	PrintWriter printer;
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
@@ -39,8 +38,6 @@ public class UI extends JFrame
 
 	public UI() throws FileNotFoundException
 	{
-		printer = new PrintWriter("log.txt");
-
 		setLayout(new BorderLayout());
 
 		topPanel = new JPanel();
@@ -141,15 +138,13 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				printer.println("You went north");
-				output = "You went north. \n";
+
 				try {
 					move("north");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				printer.flush();
 			}
 		}
 		moveUp.addActionListener(new moveUpListener());
@@ -160,15 +155,13 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				printer.println("You went south");
-				output = "You went south. \n";
+
 				try {
 					move("south");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				printer.flush();
 			}
 		}
 		moveDown.addActionListener(new moveDownListener());
@@ -179,15 +172,13 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				printer.println("You went west");
-				output = "You went west. \n";
+
 				try {
 					move("west");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				printer.flush();
+
 			}
 		}
 		moveLeft.addActionListener(new moveLeftListener());
@@ -198,15 +189,12 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-				printer.println("You went east");
-				output = "You went east. \n";
 				try {
 					move("east");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				printer.flush();
 			}
 		}
 		moveRight.addActionListener(new moveRightListener());
@@ -223,7 +211,6 @@ public class UI extends JFrame
 					e.printStackTrace();
 				}
 				
-				printer.flush();
 			}
 		}
 		help.addActionListener(new helpListener());
@@ -240,17 +227,11 @@ public class UI extends JFrame
 					e.printStackTrace();
 				}
 				
-				printer.flush();
 			}
 		}
 		inventory.addActionListener(new inventoryListener());
 		bottomPanel.add(inventory);	
 	}
-
-    public void closer()
-    {
-        printer.close();
-    }
 
 	public void load() throws Exception
 	{

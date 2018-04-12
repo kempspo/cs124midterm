@@ -16,7 +16,6 @@ public class Main
           @Override
           public void windowClosing(java.awt.event.WindowEvent windowEvent)
           {
-            ui.closer();
             windowEvent.getWindow().dispose();
           }
         });
