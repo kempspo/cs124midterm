@@ -1,3 +1,10 @@
 /bin/
 bin/cs124midterm/UI.class
 bin/cs124midterm/UI.class
+log.txt
+.classpath
+bin/cs124midterm/UI$1moveDownListener.class
+bin/cs124midterm/UI$1moveLeftListener.class
+bin/cs124midterm/UI$1moveRightListener.class
+bin/cs124midterm/UI$1moveUpListener.class
+bin/cs124midterm/UI.class

@@ -2,7 +2,6 @@ package cs124midterm;
 
 public class Main
 {
-
 	public static UI ui;
 	
     public static void main(String[] args) throws Exception
