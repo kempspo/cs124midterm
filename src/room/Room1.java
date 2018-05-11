@@ -5,7 +5,7 @@ import cs124midterm.*;
 import items.*;
 import java.util.*;
 
-public class Room1
+public class Room1 implements Room
 {
 	private Map<String, Item> itemsInRoom = new HashMap<String, Item>();
 	private boolean beenHereBefore = false;
