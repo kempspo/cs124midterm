@@ -452,19 +452,24 @@ public class UI extends JFrame
 			pw.println("PLAYER");		
 			for(String key : playerInv.keySet())
 				pw.println(key);
+			pw.println();
 			
-			pw.println("ROOMS");
 			for(Class clazz : roomMap.keySet())
 			{
 				Object lul = roomMap.get(clazz);
 				Class<? extends Object> lul2 = lul.getClass();
+				if(lul instanceof EnterCondition) {
+					lul2 = lul2.getSuperclass();
+				}
 				Method lul3 = lul2.getDeclaredMethod("getItems");
+				lul3.setAccessible(true);
 			
 				HashMap<String, Item> roomInv = (HashMap<String, Item>) lul3.invoke(roomMap.get(lul2));
 				
 				pw.println(lul2.getName());
 				for(String key : roomInv.keySet())
 					pw.println(key);
+				pw.println();
 			}
 		} catch(Exception e){
 			System.out.println(e);
