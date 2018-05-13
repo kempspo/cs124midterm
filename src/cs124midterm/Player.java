@@ -7,8 +7,14 @@ import java.util.*;
 
 public class Player 
 {
+	Player player;
 	public Map<String, Item> inventory = new HashMap<String, Item>();
 	public boolean alive = true;
+		
+	public Player getPlayer()
+	{
+		return this.player;
+	}
 	
 	public String take(String itemName, Item item)
 	{
