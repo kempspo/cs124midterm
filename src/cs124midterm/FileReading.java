@@ -1,5 +1,14 @@
 package cs124midterm;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
@@ -8,24 +17,14 @@ import anno.Command;
 import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
-import cs124midterm.*;
-import items.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-
-public class UI extends JFrame
+public class FileReading extends JFrame 
 {
 	String inventory;
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
-	private Player player = new Player();;
+	private Player player = new Player();
 	
 	private JLabel topLabel;
 
@@ -38,7 +37,7 @@ public class UI extends JFrame
 	
 	private JScrollPane scrollPane;
 
-	public UI() throws FileNotFoundException
+	public FileReading() throws FileNotFoundException
 	{
 		setLayout(new BorderLayout());
 
@@ -60,23 +59,18 @@ public class UI extends JFrame
 		bottomArea = new JPanel();
 		bottomArea.setLayout(new FlowLayout());
 		centerPanel.add( bottomArea );
-		createInput();
 
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(2,2));
 		add(bottomPanel,"South");
-		createButtons();
 	}
-
-	/**
-	 * Creates label for the window idk
-	 */
+	
 	public void createTopLabel()
 	{
 		topLabel = new JLabel("Welcome"); //placeholder
 		topPanel.add(topLabel);
 	}
-
+	
 	/**
 	 * Creates text area where output is printed.
 	 */
@@ -110,143 +104,6 @@ public class UI extends JFrame
 		 String stand = "INVENTORY";
 		 textArea2.setText(stand + "\n" + inventory);
 		 centerArea.add(textArea2);
-	}
-
-	/**
-	 * Creates field for user inputs
-	 */
-	public void createInput()
-	{
-		textField = new JTextField(20);
-		bottomArea.add(new JLabel(" Input here: "));
-		bottomArea.add( textField );
-		textField.requestFocus();
-		
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed( ActionEvent e ) {
-				setTextArea("> " + textField.getText() + "\n");
-				execute(textField.getText());
-				textField.setText("");
-				textField.requestFocus();
-			}
-		});
-	}
-
-	/**
-	 * Creates the ff buttons:
-	 *	- Go North, South, East, West
-	 *	-
-	 */
-	public void createButtons() 
-	{
-		JButton moveUp = new JButton("Go North");
-		class moveUpListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-
-				setTextArea("> go north\n");
-				try {
-					move("north");
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		moveUp.addActionListener(new moveUpListener());
-		bottomPanel.add(moveUp);
-
-		JButton moveDown = new JButton("Go South");
-		class moveDownListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-
-				setTextArea("> go south\n");
-				try {
-					move("south");
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		moveDown.addActionListener(new moveDownListener());
-		bottomPanel.add(moveDown);
-
-		JButton moveLeft = new JButton("Go West");
-		class moveLeftListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-
-				setTextArea("> go west\n");
-				try {
-					move("west");
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-		moveLeft.addActionListener(new moveLeftListener());
-		bottomPanel.add(moveLeft);
-
-		JButton moveRight = new JButton("Go East");
-		class moveRightListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				setTextArea("> go east\n");
-				try {
-					move("east");
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		moveRight.addActionListener(new moveRightListener());
-		bottomPanel.add(moveRight);	
-		
-		JButton help = new JButton("Help");
-		class helpListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				try {
-					help();
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		help.addActionListener(new helpListener());
-		bottomPanel.add(help);	
-		
-		JButton save = new JButton("Save");
-		class inventoryListener implements ActionListener
-		{
-			public void actionPerformed( ActionEvent ae )
-			{
-				try {
-					save();
-					textField.requestFocus();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		save.addActionListener(new inventoryListener());
-		bottomPanel.add(save);	
 	}
 
 	public void load() throws Exception
@@ -409,34 +266,6 @@ public class UI extends JFrame
 			if(!somethingHappened)
 				setTextArea("You can't do that.\n");
 		}catch(Exception e){
-			System.out.println(e);
-		}
-	}
-	
-	public void help()
-	{
-		Class<? extends Object> clazz = currentRoom.getClass();
-		if(currentRoom instanceof EnterCondition) {
-			clazz = clazz.getSuperclass();
-		}
-		try{
-			setTextArea("Available Commands/Directions:\n");
-			Field[] fields = clazz.getDeclaredFields();
-			Method[] methods = clazz.getDeclaredMethods();
-			for(Method m : methods){
-				if(m.isAnnotationPresent(Command.class)){
-					Command c = m.getAnnotation(Command.class);
-					setTextArea(c.command() + "\n");
-				}
-			}
-			for(Field f: fields) {
-				if(f.isAnnotationPresent(Direction.class)) {
-					Direction d = f.getAnnotation(Direction.class);
-					setTextArea(f.getName() + "\n");
-				}
-			}
-		}catch(Exception e){
-			System.out.println("Something went wrong.");
 			System.out.println(e);
 		}
 	}
