@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Player 
 {
-	public Map<String, Item> inventory = new HashMap<String, Item>();
+	public HashMap<String, Item> inventory = new HashMap<String, Item>();
 	public boolean alive = true;
 	
 	public String take(String itemName, Item item)
@@ -50,7 +50,11 @@ public class Player
 				output += key + "\n";
 			}
 		}
-
 		return output;
+	}
+	
+	public HashMap getInventory()
+	{
+		return inventory;
 	}
 }

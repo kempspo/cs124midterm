@@ -1,0 +1,5 @@
+PLAYER
+ROOMS
+room.Room3
+room.Room5
+knife

@@ -10,4 +10,5 @@ public interface Room
 	public boolean hasItem(String item);
 	public String removeItem(String item, Player player);
 	public String addItem(String item, Player player);
+	public HashMap getItems();
 }

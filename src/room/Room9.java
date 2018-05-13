@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Room9 implements Room
 {
-	private Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private HashMap<String, Item> itemsInRoom = new HashMap<String, Item>();
 	private boolean brotherSaved = false;
 	
 	@Direction(command="north")
@@ -110,5 +110,10 @@ public class Room9 implements Room
 		}
 		else
 			return "You don't have a " + item + " in your inventory.";
+	}
+	
+	public HashMap getItems()
+	{
+		return itemsInRoom;
 	}
 }

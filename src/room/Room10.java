@@ -8,8 +8,8 @@ import java.util.*;
 
 public class Room10 implements Room
 {	
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
-	String response;
+	private HashMap<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private String response;
 	
 	public String getDescription()
 	{
@@ -80,4 +80,9 @@ public class Room10 implements Room
         
         return response;
     }
+	
+	public HashMap getItems()
+	{
+		return itemsInRoom;
+	}
 }

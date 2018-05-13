@@ -7,7 +7,7 @@ import items.*;
 
 public class Room2 implements Room
 {
-	private Map<String, Item> itemsInRoom = new HashMap<String, Item>(); 
+	private HashMap<String, Item> itemsInRoom = new HashMap<String, Item>(); 
 	{
 		itemsInRoom.put("pan",new Pan());
 	}
@@ -85,5 +85,10 @@ public class Room2 implements Room
 		}
 		else
 			return "You don't have a " + item + " in your inventory.";
+	}
+	
+	public HashMap getItems()
+	{
+		return itemsInRoom;
 	}
 }

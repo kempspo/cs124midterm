@@ -8,7 +8,7 @@ import java.util.*;
 @CheckEnter
 public class Room7 implements Room
 {
-	Map<String, Item> itemsInRoom = new HashMap<String, Item>();
+	private HashMap<String, Item> itemsInRoom = new HashMap<String, Item>();
 	static boolean canEnter = false;
 	
 	@Direction(command="north")
@@ -95,5 +95,10 @@ public class Room7 implements Room
 	public static String unableToEnterMessage()
 	{
 		return "You cannot go inside!\n";
+	}
+	
+	public HashMap getItems()
+	{
+		return itemsInRoom;
 	}
 }

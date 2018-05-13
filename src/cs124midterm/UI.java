@@ -9,6 +9,7 @@ import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 import cs124midterm.*;
+import items.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -200,7 +201,6 @@ public class UI extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-
 				setTextArea("> go east\n");
 				try {
 					move("east");
@@ -231,13 +231,13 @@ public class UI extends JFrame
 		help.addActionListener(new helpListener());
 		bottomPanel.add(help);	
 		
-		JButton inventory = new JButton("Inventory");
+		JButton save = new JButton("Save");
 		class inventoryListener implements ActionListener
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
 				try {
-					setInventory(player.showInventory());
+					save();
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -245,8 +245,8 @@ public class UI extends JFrame
 				
 			}
 		}
-		inventory.addActionListener(new inventoryListener());
-		bottomPanel.add(inventory);	
+		save.addActionListener(new inventoryListener());
+		bottomPanel.add(save);	
 	}
 
 	public void load() throws Exception
@@ -278,7 +278,6 @@ public class UI extends JFrame
 			
 			for (Field f : roomClazz.getDeclaredFields())
 			{
-				
 				if (f.isAnnotationPresent(Direction.class))
 				{
 					Class fieldClazz = f.getType();
@@ -442,4 +441,34 @@ public class UI extends JFrame
 		}
 	}
 	
+	public void save() throws Exception
+	{
+		HashMap<String, Item> playerInv = player.getInventory();
+		
+		FileWriter fw = new FileWriter("save.txt");
+		PrintWriter pw = new PrintWriter(fw);
+		
+		try {
+			pw.println("PLAYER");		
+			for(String key : playerInv.keySet())
+				pw.println(key);
+			
+			pw.println("ROOMS");
+			for(Class clazz : roomMap.keySet())
+			{
+				Object lul = roomMap.get(clazz);
+				Class<? extends Object> lul2 = lul.getClass();
+				Method lul3 = lul2.getDeclaredMethod("getItems");
+			
+				HashMap<String, Item> roomInv = (HashMap<String, Item>) lul3.invoke(roomMap.get(lul2));
+				
+				pw.println(lul2.getName());
+				for(String key : roomInv.keySet())
+					pw.println(key);
+			}
+		} catch(Exception e){
+			System.out.println(e);
+		}
+		pw.close();
+	}
 }
