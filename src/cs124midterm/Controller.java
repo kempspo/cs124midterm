@@ -16,14 +16,15 @@ public class Controller{
 		showUI();
 	}
 	
-	public void showUI() throws FileNotFoundException
+	public void showUI() throws Exception
 	{
 		ui.createUI();
 	}
 	
-	public void showUIRead() throws FileNotFoundException
+	public void showUIRead(String string) throws Exception
 	{
 		uiread.createUIRead();
+		uiread.load(string);
 	}
 	
 	public void showFileRead()

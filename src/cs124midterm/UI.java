@@ -111,14 +111,8 @@ public class UI extends JFrame {
 		{
 			public void actionPerformed(ActionEvent ae) 
 			{
-				setTextArea("");
-				File file = new File(textField.getText() +".txt");
-				if(file.exists())
-				{
-					//load user
-				}
 				try {
-					c.showUIRead();
+					c.showUIRead(textField.getText());
 					ui.dispose();
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -127,5 +121,16 @@ public class UI extends JFrame {
 		}
 		register.addActionListener(new registerListener());
 		bottomPanel.add(register);
+		
+		JButton quit = new JButton("Quit");
+		class quitListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent ae) 
+			{
+				ui.dispose();
+			}	
+		}
+		quit.addActionListener(new quitListener());
+		bottomPanel.add(quit);
 	}
 }

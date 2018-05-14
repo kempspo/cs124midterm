@@ -495,4 +495,13 @@ public class UIReading extends JFrame
 		}
 		pw.close();
 	}
+	
+	public void load(String string) throws Exception
+	{
+		File file = new File(string +".txt");
+		if(file.exists())
+		{
+			//load user
+		}
+	}
 }
