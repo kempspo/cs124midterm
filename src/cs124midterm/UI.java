@@ -114,7 +114,7 @@ public class UI extends JFrame {
 				try {
 					c.showUIRead(textField.getText());
 					ui.dispose();
-				} catch (FileNotFoundException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
