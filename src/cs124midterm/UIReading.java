@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class UIReading extends JFrame
 {
@@ -40,6 +41,7 @@ public class UIReading extends JFrame
 
 	public UIReading ui;
 	public Controller c;
+	private File file;
 
 	public void createUIRead() throws FileNotFoundException {
 		ui = new UIReading(c);
@@ -496,12 +498,22 @@ public class UIReading extends JFrame
 		pw.close();
 	}
 	
-	public void load(String string) throws Exception
+	public void register(String string) throws Exception
 	{
-		File file = new File(string +".txt");
+		file = new File(string +".txt");
 		if(file.exists())
 		{
-			//load user
+			load();
+		}
+	}
+	
+	public void loadPlayer() throws Exception
+	{
+		Scanner sc = new Scanner(file);
+		while(sc.hasNextLine())
+		{
+			String next = sc.nextLine();
+			//do loading stuff
 		}
 	}
 }

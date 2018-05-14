@@ -24,7 +24,7 @@ public class Controller{
 	public void showUIRead(String string) throws Exception
 	{
 		uiread.createUIRead();
-		uiread.load(string);
+		uiread.register(string);
 	}
 	
 	public void showFileRead()
