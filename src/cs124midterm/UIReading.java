@@ -513,7 +513,29 @@ public class UIReading extends JFrame
 		while(sc.hasNextLine())
 		{
 			String next = sc.nextLine();
-			//do loading stuff
+			if(next.contains("PLAYER"))
+			{
+				//player.setInventory(inv);
+			}
+			else {
+				for(Class clazz : roomMap.keySet())
+				{
+					Object lul = roomMap.get(clazz);
+					Class<? extends Object> lul2 = lul.getClass();
+					if(lul instanceof EnterCondition) {
+						lul2 = lul2.getSuperclass();
+					}
+					Method lul3 = lul2.getDeclaredMethod("getItems");
+					lul3.setAccessible(true);
+				
+					HashMap<String, Item> roomInv = (HashMap<String, Item>) lul3.invoke(roomMap.get(lul2));
+					
+					for(String key : roomInv.keySet()) {
+						
+					}
+						
+				}
+			}
 		}
 	}
 }

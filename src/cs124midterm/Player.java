@@ -57,4 +57,9 @@ public class Player
 	{
 		return inventory;
 	}
+	
+	public void setInventory(String inv)
+	{
+		//inventory.put(inv);
+	}
 }
