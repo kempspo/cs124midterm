@@ -38,8 +38,27 @@ public class UIReading extends JFrame
 	
 	private JScrollPane scrollPane;
 
-	public UIReading() throws FileNotFoundException
+	public UIReading ui;
+	public Controller c;
+
+	public void createUIRead() throws FileNotFoundException {
+		ui = new UIReading(c);
+		ui.setSize( 1280, 720 );
+		ui.setVisible( true );
+		ui.setTitle( "UI Reading" );
+		ui.addWindowListener(new java.awt.event.WindowAdapter()
+		{
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent)
+			{
+				windowEvent.getWindow().dispose();
+			}
+		});
+	}
+	
+	public UIReading(Controller control) throws FileNotFoundException
 	{
+		c = control;
 		setLayout(new BorderLayout());
 
 		topPanel = new JPanel();
@@ -445,7 +464,7 @@ public class UIReading extends JFrame
 	{
 		HashMap<String, Item> playerInv = player.getInventory();
 		
-		FileWriter fw = new FileWriter("save.txt");
+		FileWriter fw = new FileWriter("save.txt"); // must change to username to allow
 		PrintWriter pw = new PrintWriter(fw);
 		
 		try {
