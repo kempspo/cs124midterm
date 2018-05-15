@@ -1,110 +1,29 @@
 package cs124midterm;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
-import javax.swing.*;
-import javax.swing.text.DefaultCaret;
-
+import room.*;
 import anno.CheckEnter;
 import anno.Command;
 import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 
-public class FileReading extends JFrame 
-{
+public class doStuff {
 	String inventory;
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
 	private Player player = new Player();
 	
-	private JLabel topLabel;
-
-	public JTextArea textArea = new JTextArea();
-	public JTextArea textArea2 = new JTextArea();
-
-	private JTextField textField;
-
-	private JPanel topPanel, centerPanel, bottomArea, centerArea, bottomPanel;
-	
-	private JScrollPane scrollPane;
-
-	public FileReading() throws FileNotFoundException
-	{
-		setLayout(new BorderLayout());
-
-		topPanel = new JPanel();
-		topPanel.setLayout(new FlowLayout());
-		add(topPanel, "North");
-		createTopLabel();
-
-		centerPanel = new JPanel();
-		centerPanel.setLayout(new GridLayout(0,1));
-		add(centerPanel,"Center");
-
-		centerArea = new JPanel();
-		centerArea.setLayout(new GridLayout(1,0));
-		centerPanel.add( centerArea );
-		createTextArea();
-		createInventoryArea();
-
-		bottomArea = new JPanel();
-		bottomArea.setLayout(new FlowLayout());
-		centerPanel.add( bottomArea );
-
-		bottomPanel = new JPanel();
-		bottomPanel.setLayout(new GridLayout(2,2));
-		add(bottomPanel,"South");
-	}
-	
-	public void createTopLabel()
-	{
-		topLabel = new JLabel("Welcome"); //placeholder
-		topPanel.add(topLabel);
-	}
-	
-	/**
-	 * Creates text area where output is printed.
-	 */
-	public void createTextArea()
-	{
-		scrollPane = new JScrollPane(textArea); 
-		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		textArea.setEditable(false);
-		textArea.setText("");
-		centerArea.add(scrollPane);
-	}
-	
-	public void setTextArea(String s)
-	{
-		textArea.append(s);
-	}
-	
-	public void setInventory(String s)
-	{
-		textArea2.setText("INVENTORY\n" + s);
-	}
-
-	/**
-	 * Creates inventory text area
-	 */
-	public void createInventoryArea()
-	{
-		 textArea2.setEditable(false);
-		 inventory = "";
-		 String stand = "INVENTORY";
-		 textArea2.setText(stand + "\n" + inventory);
-		 centerArea.add(textArea2);
-	}
+	private File file;
 
 	public void load() throws Exception
 	{
@@ -150,7 +69,7 @@ public class FileReading extends JFrame
 		printDescription();
 	}
 	
-	public void printDescription() throws Exception
+	public String printDescription() throws Exception
 	{
 		Class<? extends Object> c = currentRoom.getClass();
 		if(currentRoom instanceof EnterCondition) {
@@ -158,10 +77,11 @@ public class FileReading extends JFrame
 		}
 		Method m = c.getDeclaredMethod("getDescription");
 		String description = (String) m.invoke(roomMap.get(c));
-		setTextArea(description + "\n");
+		return (description + "\n");
 	}
 	
-	public void move(String direction) throws Exception{
+	public String move(String direction) throws Exception{
+		String m = "";
 		Class<? extends Object> clazz = currentRoom.getClass();
 		if(currentRoom instanceof EnterCondition) {
 			clazz = clazz.getSuperclass();
@@ -181,13 +101,13 @@ public class FileReading extends JFrame
 						{
 							if(((EnterCondition) o).canEnter(player))
 							{
-								setTextArea(((EnterCondition) o).enterMessage());
+								m = ((EnterCondition) o).enterMessage();
 								currentRoom = o.getClass().getSuperclass().newInstance();
 								somethingHappened = true;
 							}
 							else
 							{
-								setTextArea(((EnterCondition) o).unableToEnterMessage());
+								m = (((EnterCondition) o).unableToEnterMessage());
 								somethingHappened = true;
 							}
 						}
@@ -202,11 +122,14 @@ public class FileReading extends JFrame
 				}
 			}
 			if(!somethingHappened)
-				setTextArea("You can't go that way.\n");
+				m = ("You can't go that way.\n");
+			return m;
 		}catch(Exception e){e.printStackTrace();}
+		return m;
 	}
 	
-	public void execute(String command){
+	public String execute(String command){
+		String exec = "";
 		Class<? extends Object> clazz = currentRoom.getClass();
 		if(currentRoom instanceof EnterCondition) {
 			clazz = clazz.getSuperclass();
@@ -220,36 +143,11 @@ public class FileReading extends JFrame
 					if(command.contains(" ")){
 						String[] methodParams = command.split(" ");
 						if(c.command().equals(methodParams[0])){
-							if(methodParams[0].equals("password")){
-								Method passIt = clazz.getDeclaredMethod("password", String.class, Player.class);
+								Method passIt = clazz.getDeclaredMethod(methodParams[0], String.class, Player.class);
 								passIt.setAccessible(true);
 								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
-								setTextArea(pass);
+								exec = (pass + "\n");
 								somethingHappened = true;
-							}
-							if(methodParams[0].equals("take")){
-								Method passIt = clazz.getDeclaredMethod("removeItem", String.class, Player.class);
-								passIt.setAccessible(true);
-								String take = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
-								setTextArea(take + "\n");
-								setInventory(player.showInventory());
-								somethingHappened = true;
-							}	
-							if(methodParams[0].equals("drop")){
-								Method passIt = clazz.getDeclaredMethod("addItem", String.class, Player.class);
-								passIt.setAccessible(true);
-								String drop = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);	
-								setTextArea(drop + "\n");
-								setInventory(player.showInventory());
-								somethingHappened = true;
-							}
-							if(methodParams[0].equals("use")){
-								Method passIt = clazz.getDeclaredMethod("useItem", String.class, Player.class);
-								passIt.setAccessible(true);
-								String use = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);
-								setTextArea(use + "\n");
-								somethingHappened = true;
-							}
 						}
 					}
 					else{
@@ -257,16 +155,48 @@ public class FileReading extends JFrame
 							Method ex = clazz.getDeclaredMethod(command);
 							ex.setAccessible(true);
 							String some = (String) ex.invoke(roomMap.get(clazz));
-							setTextArea(some + "\n");
+							exec = (some + "\n");
 							somethingHappened = true;
 						}
 					}
 				}
 			}
 			if(!somethingHappened)
-				setTextArea("You can't do that.\n");
+				exec = ("You can't do that.\n");
+			return exec;
 		}catch(Exception e){
+			return exec;
+		}
+	}
+	
+	public String help()
+	{
+		String help = "";
+		Class<? extends Object> clazz = currentRoom.getClass();
+		if(currentRoom instanceof EnterCondition) {
+			clazz = clazz.getSuperclass();
+		}
+		try{
+			help = ("Available Commands/Directions:\n");
+			Field[] fields = clazz.getDeclaredFields();
+			Method[] methods = clazz.getDeclaredMethods();
+			for(Method m : methods){
+				if(m.isAnnotationPresent(Command.class)){
+					Command c = m.getAnnotation(Command.class);
+					help = (c.command() + "\n");
+				}
+			}
+			for(Field f: fields) {
+				if(f.isAnnotationPresent(Direction.class)) {
+					Direction d = f.getAnnotation(Direction.class);
+					help = (f.getName() + "\n");
+				}
+			}
+			return help;
+		}catch(Exception e){
+			help = ("Something went wrong.");
 			System.out.println(e);
+		return help;
 		}
 	}
 	
@@ -274,7 +204,7 @@ public class FileReading extends JFrame
 	{
 		HashMap<String, Item> playerInv = player.getInventory();
 		
-		FileWriter fw = new FileWriter("save.txt");
+		FileWriter fw = new FileWriter("save.txt"); // must change to username to allow
 		PrintWriter pw = new PrintWriter(fw);
 		
 		try {
@@ -304,5 +234,55 @@ public class FileReading extends JFrame
 			System.out.println(e);
 		}
 		pw.close();
+	}
+	
+	public void register(String string) throws Exception
+	{
+		file = new File(string +".txt");
+		if(file.exists())
+		{
+			load();
+		}
+		else
+		{
+			
+		}
+	}
+	
+	public void loadPlayer() throws Exception
+	{
+		Scanner sc = new Scanner(file);
+		while(sc.hasNextLine())
+		{
+			String next = sc.nextLine();
+			if(next.contains("PLAYER"))
+			{
+				//player.setInventory(inv);
+			}
+			else {
+				for(Class clazz : roomMap.keySet())
+				{
+					Object lul = roomMap.get(clazz);
+					Class<? extends Object> lul2 = lul.getClass();
+					if(lul instanceof EnterCondition) {
+						lul2 = lul2.getSuperclass();
+					}
+					Method lul3 = lul2.getDeclaredMethod("getItems");
+					lul3.setAccessible(true);
+				
+					HashMap<String, Item> roomInv = (HashMap<String, Item>) lul3.invoke(roomMap.get(lul2));
+					
+					for(String key : roomInv.keySet()) {
+						
+					}
+						
+				}
+			}
+		}
+	}
+	
+	public HashMap getInventory()
+	{
+		return player.getInventory();	
 	}
 }

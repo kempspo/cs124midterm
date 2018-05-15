@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 public class Controller{
 	UI ui;
 	UIReading uiread;
-	FileReading fileread;
+	FileStrategy fs;
+	//doStuff ds;
 
 	public Controller() throws Exception
 	{
@@ -24,12 +25,12 @@ public class Controller{
 	public void showUIRead(String string) throws Exception
 	{
 		uiread.createUIRead();
-		uiread.register(string);
+		uiread.ds.register(string);
 	}
 	
 	public void showFileRead()
 	{
-		//fileread.createFileRead();
+		//fs.read();
 	}
 
 

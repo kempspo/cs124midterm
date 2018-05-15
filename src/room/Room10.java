@@ -68,6 +68,7 @@ public class Room10 implements Room
             else
             {
                 response = ("That is correct. The door opens and you're free. If you haven't realize yet you're a crab. The End.");
+                player.setWin();
             }
         }
         else

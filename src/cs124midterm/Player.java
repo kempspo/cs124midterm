@@ -9,6 +9,7 @@ public class Player
 {
 	public HashMap<String, Item> inventory = new HashMap<String, Item>();
 	public boolean alive = true;
+	public boolean win = false;
 	
 	public String take(String itemName, Item item)
 	{
@@ -38,6 +39,13 @@ public class Player
 		alive = false;
 	}
 	
+	public boolean getWin() {
+		return win;
+	}
+	
+	public void setWin() {
+		win = true;
+	}
 	
 	public String showInventory()
 	{
