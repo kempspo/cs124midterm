@@ -73,7 +73,7 @@ public class Room1 implements Room
 	{
 		if(player.hasItem(item))
 		{
-			itemsInRoom.put(item, player.inventory.get(item));
+			itemsInRoom.put(item, player.getInventory().get(item));
 			String text = player.drop(item);
 			return text;
 		}

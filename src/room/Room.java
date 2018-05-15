@@ -1,9 +1,10 @@
 package room;
 
+import java.io.Serializable;
 import java.util.*;
 import cs124midterm.*;
 
-public interface Room 
+public interface Room extends Serializable
 {
 	public String getDescription();
 	public String look();

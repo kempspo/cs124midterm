@@ -43,13 +43,13 @@ public class Room10 implements Room
 		else
 			return "There is no " + item + " anywhere around you.";
 	}
-  
-	@Command(command="drop")
+
+	@Command(command="drop")  
 	public String drop(String item, Player player)
 	{
 		if(player.hasItem(item))
 		{
-			itemsInRoom.put(item, player.inventory.get(item));
+			itemsInRoom.put(item, player.getInventory().get(item));
 			String text = player.drop(item);
 			return text;
 		}

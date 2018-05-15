@@ -3,13 +3,24 @@ package cs124midterm;
 import anno.*;
 import cs124midterm.*;
 import items.*;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Player 
+public class Player implements Serializable
 {
-	public HashMap<String, Item> inventory = new HashMap<String, Item>();
-	public boolean alive = true;
-	public boolean win = false;
+	private String name;
+	private HashMap<String, Item> inventory;
+	private boolean alive;
+	private boolean win;
+	
+	public Player(String n)
+	{
+		name = n;
+		inventory = new HashMap<String, Item>();
+		alive = true;
+		win = false;
+	}
 	
 	public String take(String itemName, Item item)
 	{
@@ -22,13 +33,9 @@ public class Player
 		inventory.remove(item);
 		return "You dropped the " + item + " from your inventory.";
 	}
-	
-	public boolean hasItem(String item)
-	{
-		if(inventory.containsKey(item))
-			return true;
-		else
-			return false;
+
+	public String getName() {
+		return name;
 	}
 	
 	public boolean getAlive() {
@@ -47,6 +54,11 @@ public class Player
 		win = true;
 	}
 	
+	public HashMap<String, Item> getInventory()
+	{
+		return inventory;
+	}
+	
 	public String showInventory()
 	{
 		String output = "";
@@ -61,13 +73,11 @@ public class Player
 		return output;
 	}
 	
-	public HashMap getInventory()
+	public boolean hasItem(String item)
 	{
-		return inventory;
-	}
-	
-	public void setInventory(String inv)
-	{
-		//inventory.put(inv);
+		if(inventory.containsKey(item))
+			return true;
+		else
+			return false;
 	}
 }

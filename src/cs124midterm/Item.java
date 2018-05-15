@@ -1,6 +1,8 @@
 package cs124midterm;
 
-public interface Item 
+import java.io.Serializable;
+
+public interface Item extends Serializable
 {
 	public String getName();
 	public String getDescription();
