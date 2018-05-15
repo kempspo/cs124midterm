@@ -40,7 +40,6 @@ public class UIReading extends JFrame
 	public UIReading(Controller control) throws Exception
 	{
 		c = control;
-		c.getCurrent().getClass().getName(); 
 		
 		setLayout(new BorderLayout());
 
@@ -69,6 +68,11 @@ public class UIReading extends JFrame
 		add(bottomPanel,"South");
 		createButtons();
 
+		if(c.getCurrent().getClass().getName().equals("doStuff"))
+		{
+			ds = (doStuff) c.getCurrent();
+			ds.load();
+		}
 	}
 
 	/**
@@ -173,7 +177,6 @@ public class UIReading extends JFrame
 		{
 			public void actionPerformed( ActionEvent ae )
 			{
-
 				setTextArea("> go south\n");
 				try {
 					setTextArea(ds.move("south"));

@@ -1,6 +1,5 @@
 package cs124midterm;
 
-import java.io.FileNotFoundException;
 
 public class Controller{
 
