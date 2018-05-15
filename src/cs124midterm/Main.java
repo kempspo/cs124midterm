@@ -5,19 +5,34 @@ public class Main
 	public static Controller control;
 	public static UIReading ui;
 	public static void main(String[] args) throws Exception
-	{    	
+	{
+		int temp = 0;
 		Controller control = new Controller();
-		ui = new UIReading(control);
-		ui.setSize( 1280, 720 );
-		ui.setVisible( true );
-		ui.setTitle( "UI Reading" );
-		ui.addWindowListener(new java.awt.event.WindowAdapter()
-		{
-			@Override
-			public void windowClosing(java.awt.event.WindowEvent windowEvent)
+		
+		while(true)
+		{	
+			if(!control.getChanged() && temp == 0)
 			{
-				windowEvent.getWindow().dispose();
+				control.createTopLabel();
+				control.createTextArea();
+				control.createInventoryArea();
+				control.createInput();
+				control.createButtons();
+				control.make();
+				temp++;
 			}
-		});
+			if(control.getChanged() && temp == 1)
+			{
+				control.createTopLabel();
+				control.createTextArea();
+				control.createInventoryArea();
+				control.createInput();
+				control.createButtons();
+				control.make();
+				temp--;
+			}
+		}
+		
+		
 	}
-}
+}	

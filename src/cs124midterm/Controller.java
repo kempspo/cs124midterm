@@ -4,24 +4,69 @@ package cs124midterm;
 public class Controller{
 
 	private State currentState;
+	private Commands c;
+	private boolean changed;
 
 	public Controller()
 	{
-		currentState = new mainMenu();
+		currentState = new UIMainMenu(c);
+		c = new Commands();
+		changed = false;
+	}
+	
+	public State getState() 
+	{
+		return currentState;
 	}
 	
 	public void setState(State s)
 	{
 		currentState = s;
+		changed = !changed;
 	}
 	
-	public void change()
+	public void createTopLabel()
 	{
-		currentState.change(this);
+		currentState.createTopLabel();
 	}
 	
-	public State getCurrent() 
+	public void createTextArea()
 	{
-		return currentState;
+		currentState.createTextArea();
+	}
+	
+	public void createInventoryArea()
+	{
+		currentState.createInventoryArea();
+	}
+	
+	public void setTextArea(String s)
+	{
+		currentState.setTextArea(s);
+	}
+	
+	public void setInventory(String s)
+	{
+		currentState.setInventory(s);
+	}
+	
+	public void createInput()
+	{
+		currentState.createInput();
+	}
+	
+	public void createButtons()
+	{
+		currentState.createButtons(this);
+	}
+	
+	public void make()
+	{
+		currentState.make();
+	}
+	
+	public boolean getChanged()
+	{
+		return changed;
 	}
 }

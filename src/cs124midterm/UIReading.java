@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class UIReading extends JFrame
+public class UIReading extends JFrame implements State
 {
 	private JLabel topLabel;
 
@@ -32,21 +32,17 @@ public class UIReading extends JFrame
 	private JPanel topPanel, centerPanel, bottomArea, centerArea, bottomPanel;
 	
 	private JScrollPane scrollPane;
-	public UIReading ui;
-	public Controller c;
-	public doStuff ds;
-	public mainMenu mm;
-	
-	public UIReading(Controller control) throws Exception
-	{
-		c = control;
+	private Commands commands;
+
+	public UIReading(Commands c)
+	{		
+		commands = c;
 		
 		setLayout(new BorderLayout());
 
 		topPanel = new JPanel();
 		topPanel.setLayout(new FlowLayout());
 		add(topPanel, "North");
-		createTopLabel();
 
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(0,1));
@@ -55,24 +51,15 @@ public class UIReading extends JFrame
 		centerArea = new JPanel();
 		centerArea.setLayout(new GridLayout(1,0));
 		centerPanel.add( centerArea );
-		createTextArea();
-		createInventoryArea();
 
 		bottomArea = new JPanel();
 		bottomArea.setLayout(new FlowLayout());
 		centerPanel.add( bottomArea );
-		createInput();
 
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(2,2));
 		add(bottomPanel,"South");
-		createButtons();
 
-		if(c.getCurrent().getClass().getName().equals("doStuff"))
-		{
-			ds = (doStuff) c.getCurrent();
-			ds.load();
-		}
 	}
 
 	/**
@@ -97,6 +84,14 @@ public class UIReading extends JFrame
 		centerArea.add(scrollPane);
 	}
 	
+	public void createInventoryArea()
+	{
+		 textArea2.setEditable(false);
+		 String stand = "INVENTORY";
+		 textArea2.setText(stand + "\n");
+		 centerArea.add(textArea2);
+	}
+	
 	public void setTextArea(String s)
 	{
 		textArea.append(s);
@@ -110,14 +105,6 @@ public class UIReading extends JFrame
 	/**
 	 * Creates inventory text area
 	 */
-	public void createInventoryArea()
-	{
-		 textArea2.setEditable(false);
-		 String stand = "INVENTORY";
-		 textArea2.setText(stand + "\n");
-		 centerArea.add(textArea2);
-	}
-
 	/**
 	 * Creates field for user inputs
 	 */
@@ -131,14 +118,14 @@ public class UIReading extends JFrame
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				setTextArea("> " + textField.getText() + "\n");
-				String exec = ds.execute(textField.getText());
-				
-				if(ds.getInvChange())
+				String exec = commands.execute(textField.getText());
+		
+				if(commands.getInvChange())
 				{
 					setTextArea(exec);
-					setInventory(ds.getInventory());
+					setInventory(commands.getInventory());
 				}
-				if(ds.getTextChange())
+				if(commands.getTextChange())
 					setTextArea(exec);
 				textField.setText("");
 				textField.requestFocus();
@@ -151,7 +138,7 @@ public class UIReading extends JFrame
 	 *	- Go North, South, East, West
 	 *	-
 	 */
-	public void createButtons() 
+	public void createButtons(Controller c) 
 	{
 		JButton moveUp = new JButton("Go North");
 		class moveUpListener implements ActionListener
@@ -161,7 +148,7 @@ public class UIReading extends JFrame
 
 				setTextArea("> go north\n");
 				try {
-					setTextArea(ds.move("north"));
+					setTextArea(commands.move("north"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -179,7 +166,7 @@ public class UIReading extends JFrame
 			{
 				setTextArea("> go south\n");
 				try {
-					setTextArea(ds.move("south"));
+					setTextArea(commands.move("south"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -198,7 +185,7 @@ public class UIReading extends JFrame
 
 				setTextArea("> go west\n");
 				try {
-					setTextArea(ds.move("west"));
+					setTextArea(commands.move("west"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -216,7 +203,7 @@ public class UIReading extends JFrame
 			{
 				setTextArea("> go east\n");
 				try {
-					setTextArea(ds.move("east"));
+					setTextArea(commands.move("east"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -233,7 +220,7 @@ public class UIReading extends JFrame
 			public void actionPerformed( ActionEvent ae )
 			{
 				try {
-					setTextArea(ds.help());
+					setTextArea(commands.help());
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -250,7 +237,7 @@ public class UIReading extends JFrame
 			public void actionPerformed( ActionEvent ae )
 			{
 				try {
-					ds.save();
+					commands.save();
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -261,4 +248,26 @@ public class UIReading extends JFrame
 		save.addActionListener(new inventoryListener());
 		bottomPanel.add(save);	
 	}
+	
+	public void change(Controller c)
+	{
+	
+	}
+	
+	public void make()
+	{
+		this.setSize(1280, 720);
+		this.setVisible(true);
+		this.setTitle("Mazes r kewl");
+		this.addWindowListener((new java.awt.event.WindowAdapter()
+		{
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent)
+			{
+				windowEvent.getWindow().dispose();
+			}
+		}));
+	}
+
 }
+

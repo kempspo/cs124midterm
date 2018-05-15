@@ -1,7 +1,11 @@
 package cs124midterm;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -14,61 +18,97 @@ import anno.Direction;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 
-public class doStuff implements State{
+public class Commands {
 	//
 	String inventory;
 
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
-	private Player player = new Player();
+	private Player player;
+	private boolean newGame = true;
 	private boolean invChange = false;
 	private boolean textChange = false;
+	private File file;
+	private SaveData save;
 	
-	public doStuff()
+	public Commands()
 	{
+		
+	}
+	
+	public void register(String name) throws Exception
+	{
+		file = new File(name +".json");
+		if(file.exists())
+		{
+			try { 
+				newGame = false;
+				FileInputStream fileIn = new FileInputStream(file);
+		        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+		        save = (SaveData) objIn.readObject();
+		        objIn.close();
+		        fileIn.close();
+		    } catch (Exception e) {
+		    	System.out.println("hello" + e);
+		    }
+		}
+		else
+		{
+			player = new Player(name);
+		}
 	}
 	
 	public String load() throws Exception
 	{
-		// load all names
-		FastClasspathScanner scanner = new FastClasspathScanner("room");
-		ScanResult result = scanner.scan();
-		
-		List<String> allClasses = result.getNamesOfAllStandardClasses();		
-		
-		// instantiate
-		for (String className : allClasses){
-			Class<?> clazz = Class.forName(className);
-			Object instance;
-			
-			if(clazz.getName().contains("room.Room")){
-				if(clazz.isAnnotationPresent(CheckEnter.class)){
-					instance = new Interceptor().run(clazz);
-				}else instance = clazz.newInstance();
-				roomMap.put(clazz, instance);
-			}		
-		}
-		
-		// associate fields
-
-		for (Class roomClazz : roomMap.keySet())
+		if(newGame)
 		{
-			Object currentRoom = roomMap.get(roomClazz);
+			// load all names
+			FastClasspathScanner scanner = new FastClasspathScanner("room");
+			ScanResult result = scanner.scan();
 			
-			for (Field f : roomClazz.getDeclaredFields())
+			List<String> allClasses = result.getNamesOfAllStandardClasses();		
+			
+			// instantiate
+			for (String className : allClasses){
+				Class<?> clazz = Class.forName(className);
+				Object instance;
+				
+				if(clazz.getName().contains("room.Room")){
+					if(clazz.isAnnotationPresent(CheckEnter.class)){
+						instance = new Interceptor().run(clazz);
+					}else instance = clazz.newInstance();
+					roomMap.put(clazz, instance);
+				}		
+			}
+			
+			// associate fields
+	
+			for (Class roomClazz : roomMap.keySet())
 			{
-				if (f.isAnnotationPresent(Direction.class))
+				Object currentRoom = roomMap.get(roomClazz);
+				
+				for (Field f : roomClazz.getDeclaredFields())
 				{
-					Class fieldClazz = f.getType();
-					Object roomInstance = roomMap.get(fieldClazz);
-					f.setAccessible(true);
-					f.set(currentRoom, roomInstance);
+					if (f.isAnnotationPresent(Direction.class))
+					{
+						Class fieldClazz = f.getType();
+						Object roomInstance = roomMap.get(fieldClazz);
+						f.setAccessible(true);
+						f.set(currentRoom, roomInstance);
+					}
 				}
 			}
+			
+			// set the first room
+			currentRoom = roomMap.get(room.Room1.class);
 		}
 		
-		// set the first room
-		currentRoom = roomMap.get(room.Room1.class);
+		else
+		{
+			roomMap = save.getRoomMap();
+			player = save.getPlayer();
+			currentRoom = save.getCurrentRoom();
+		}
 		return printDescription();
 	}
 	
@@ -212,38 +252,19 @@ public class doStuff implements State{
 	
 	public void save() throws Exception
 	{
-		HashMap<String, Item> playerInv = player.getInventory();
-		
-		FileWriter fw = new FileWriter("save.txt"); // must change to username to allow
-		PrintWriter pw = new PrintWriter(fw);
-		
 		try {
-			pw.println("PLAYER");		
-			for(String key : playerInv.keySet())
-				pw.println(key);
-			pw.println();
+			save.setRoomMap(roomMap);
+			save.setPlayer(player);
+			save.setCurrentRoom(currentRoom);
 			
-			for(Class clazz : roomMap.keySet())
-			{
-				Object lul = roomMap.get(clazz);
-				Class<? extends Object> lul2 = lul.getClass();
-				if(lul instanceof EnterCondition) {
-					lul2 = lul2.getSuperclass();
-				}
-				Method lul3 = lul2.getDeclaredMethod("getItems");
-				lul3.setAccessible(true);
-			
-				HashMap<String, Item> roomInv = (HashMap<String, Item>) lul3.invoke(roomMap.get(lul2));
-				
-				pw.println(lul2.getName());
-				for(String key : roomInv.keySet())
-					pw.println(key);
-				pw.println();
-			}
-		} catch(Exception e){
+			FileOutputStream fileOut = new FileOutputStream(file);
+			ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+			objOut.writeObject(save);
+			objOut.close();
+			fileOut.close();
+		} catch(Exception e) {
 			System.out.println(e);
 		}
-		pw.close();
 	}
 		
 	public String getInventory()
@@ -259,9 +280,5 @@ public class doStuff implements State{
 	public boolean getTextChange()
 	{
 		return textChange;
-	}
-
-	public void change(Controller c) {
-		// do nothing
 	}
 }
