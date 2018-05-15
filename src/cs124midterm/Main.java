@@ -3,7 +3,6 @@ package cs124midterm;
 public class Main
 {	
 	public static Controller control;
-	public static UIReading ui;
 	public static void main(String[] args) throws Exception
 	{
 		int temp = 0;
@@ -21,8 +20,10 @@ public class Main
 				control.make();
 				temp++;
 			}
+			System.out.println(control.getChanged() + " " + temp);
 			if(control.getChanged() && temp == 1)
 			{
+				System.out.println("goes hereee");
 				control.createTopLabel();
 				control.createTextArea();
 				control.createInventoryArea();

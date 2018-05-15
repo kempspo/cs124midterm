@@ -9,8 +9,8 @@ public class Controller{
 
 	public Controller()
 	{
-		currentState = new UIMainMenu(c);
 		c = new Commands();
+		currentState = new UIMainMenu(c);
 		changed = false;
 	}
 	

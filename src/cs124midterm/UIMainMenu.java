@@ -113,7 +113,6 @@ public class UIMainMenu extends JFrame implements State {
 						{
 							commands.register(textField.getText());
 							c.setState(new UIReading(commands));
-							dispose();
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
