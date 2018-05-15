@@ -25,7 +25,7 @@ public class doStuff {
 	
 	private File file;
 
-	public void load() throws Exception
+	public String load() throws Exception
 	{
 		// load all names
 		FastClasspathScanner scanner = new FastClasspathScanner("room");
@@ -66,7 +66,7 @@ public class doStuff {
 		
 		// set the first room
 		currentRoom = roomMap.get(room.Room1.class);
-		printDescription();
+		return printDescription();
 	}
 	
 	public String printDescription() throws Exception
@@ -116,7 +116,7 @@ public class doStuff {
 							currentRoom = o;
 							somethingHappened = true;
 						}
-						printDescription();
+						m = printDescription();
 						break;
 					}
 				}
@@ -146,7 +146,7 @@ public class doStuff {
 								Method passIt = clazz.getDeclaredMethod(methodParams[0], String.class, Player.class);
 								passIt.setAccessible(true);
 								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
-								exec = (pass + "\n");
+								exec = (methodParams[0] + "\n");
 								somethingHappened = true;
 						}
 					}

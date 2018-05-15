@@ -34,12 +34,10 @@ public class UIReading extends JFrame
 	private JScrollPane scrollPane;
 	public UIReading ui;
 	public Controller c;
-	public doStuff ds;
+	public doStuff ds = new doStuff();
 
 	public void createUIRead() throws Exception {
 		ui = new UIReading(c);
-		ds.load();
-
 		ui.setSize( 1280, 720 );
 		ui.setVisible( true );
 		ui.setTitle( "UI Reading" );
@@ -55,8 +53,8 @@ public class UIReading extends JFrame
 	
 	public UIReading(Controller control) throws Exception
 	{
-		ds = new doStuff();
 		c = control;
+
 		setLayout(new BorderLayout());
 
 		topPanel = new JPanel();
@@ -83,7 +81,9 @@ public class UIReading extends JFrame
 		bottomPanel.setLayout(new GridLayout(2,2));
 		add(bottomPanel,"South");
 		createButtons();
-		
+
+		setTextArea(ds.load());
+
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class UIReading extends JFrame
 
 				setTextArea("> go north\n");
 				try {
-					ds.move("north");
+					setTextArea(ds.move("north"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -183,7 +183,7 @@ public class UIReading extends JFrame
 
 				setTextArea("> go south\n");
 				try {
-					ds.move("south");
+					setTextArea(ds.move("south"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -202,7 +202,7 @@ public class UIReading extends JFrame
 
 				setTextArea("> go west\n");
 				try {
-					ds.move("west");
+					setTextArea(ds.move("west"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -220,7 +220,7 @@ public class UIReading extends JFrame
 			{
 				setTextArea("> go east\n");
 				try {
-					ds.move("east");
+					setTextArea(ds.move("east"));
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -237,7 +237,7 @@ public class UIReading extends JFrame
 			public void actionPerformed( ActionEvent ae )
 			{
 				try {
-					ds.help();
+					setTextArea(ds.help());
 					textField.requestFocus();
 				} catch (Exception e) {
 					e.printStackTrace();
