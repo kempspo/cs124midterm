@@ -3,35 +3,26 @@ package cs124midterm;
 import java.io.FileNotFoundException;
 
 public class Controller{
-	UI ui;
-	UIReading uiread;
-	FileStrategy fs;
-	//doStuff ds;
 
-	public Controller() throws Exception
+	private State currentState;
+
+	public Controller()
 	{
-		ui = new UI(this);
-		uiread = new UIReading(this);
-		//fileread = new FileReading(this);
-		
-		showUI();
+		currentState = new mainMenu();
 	}
 	
-	public void showUI() throws Exception
+	public void setState(State s)
 	{
-		ui.createUI();
+		currentState = s;
 	}
 	
-	public void showUIRead(String string) throws Exception
+	public void change()
 	{
-		uiread.createUIRead();
-		uiread.ds.register(string);
+		currentState.change(this);
 	}
 	
-	public void showFileRead()
+	public State getCurrent() 
 	{
-		//fs.read();
+		return currentState;
 	}
-
-
 }

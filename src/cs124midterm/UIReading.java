@@ -34,27 +34,14 @@ public class UIReading extends JFrame
 	private JScrollPane scrollPane;
 	public UIReading ui;
 	public Controller c;
-	public doStuff ds = new doStuff();
-
-	public void createUIRead() throws Exception {
-		ui = new UIReading(c);
-		ui.setSize( 1280, 720 );
-		ui.setVisible( true );
-		ui.setTitle( "UI Reading" );
-		ui.addWindowListener(new java.awt.event.WindowAdapter()
-		{
-			@Override
-			public void windowClosing(java.awt.event.WindowEvent windowEvent)
-			{
-				windowEvent.getWindow().dispose();
-			}
-		});
-	}
+	public doStuff ds;
+	public mainMenu mm;
 	
 	public UIReading(Controller control) throws Exception
 	{
 		c = control;
-
+		c.getCurrent().getClass().getName(); 
+		
 		setLayout(new BorderLayout());
 
 		topPanel = new JPanel();
@@ -82,7 +69,6 @@ public class UIReading extends JFrame
 		add(bottomPanel,"South");
 		createButtons();
 
-		setTextArea(ds.load());
 	}
 
 	/**

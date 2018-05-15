@@ -2,5 +2,5 @@ package cs124midterm;
 
 public interface State 
 {
-	void register();
+	void change(Controller c);
 }

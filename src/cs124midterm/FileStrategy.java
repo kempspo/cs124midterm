@@ -5,6 +5,7 @@ import java.util.*;
 
 public class FileStrategy implements Strategy {
 	public doStuff ds;
+	public UIReading uiread;
 
 	public void read(String string) throws Exception 
 	{
@@ -17,11 +18,11 @@ public class FileStrategy implements Strategy {
 			
 			if(next.contains("move")) 
 			{
-				ds.move(next);
+				uiread.ds.move(next);
 			}
 			if(next.contains("execute"))
 			{
-				ds.execute(next);
+				uiread.ds.execute(next);
 			}
 		}
 		sc.close();
