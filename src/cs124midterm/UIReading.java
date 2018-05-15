@@ -83,7 +83,6 @@ public class UIReading extends JFrame
 		createButtons();
 
 		setTextArea(ds.load());
-
 	}
 
 	/**
@@ -142,7 +141,15 @@ public class UIReading extends JFrame
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				setTextArea("> " + textField.getText() + "\n");
-				setTextArea(ds.execute(textField.getText()));
+				String exec = ds.execute(textField.getText());
+				
+				if(ds.getInvChange())
+				{
+					setTextArea(exec);
+					setInventory(ds.getInventory());
+				}
+				if(ds.getTextChange())
+					setTextArea(exec);
 				textField.setText("");
 				textField.requestFocus();
 			}

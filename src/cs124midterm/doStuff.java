@@ -22,6 +22,8 @@ public class doStuff {
 	private HashMap<Class, Object> roomMap = new HashMap<Class, Object>();
 	private Object currentRoom;
 	private Player player = new Player();
+	private boolean invChange = false;
+	private boolean textChange = false;
 	
 	private File file;
 
@@ -136,6 +138,8 @@ public class doStuff {
 		}
 		try{
 			boolean somethingHappened = false;
+			invChange = false;
+			textChange = false;
 			Method[] methods = clazz.getDeclaredMethods();
 			for(Method m : methods){
 				if(m.isAnnotationPresent(Command.class)){
@@ -145,8 +149,13 @@ public class doStuff {
 						if(c.command().equals(methodParams[0])){
 								Method passIt = clazz.getDeclaredMethod(methodParams[0], String.class, Player.class);
 								passIt.setAccessible(true);
-								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);		
-								exec = (methodParams[0] + "\n");
+								String pass = (String) passIt.invoke(roomMap.get(clazz), methodParams[1], player);
+								exec = (pass + "\n");
+								if(methodParams[0].equals("drop") || methodParams[0].equals("take")) {
+									invChange = true;
+								}
+								else
+									textChange = true;
 								somethingHappened = true;
 						}
 					}
@@ -183,13 +192,13 @@ public class doStuff {
 			for(Method m : methods){
 				if(m.isAnnotationPresent(Command.class)){
 					Command c = m.getAnnotation(Command.class);
-					help = (c.command() + "\n");
+					help = (help + c.command() + "\n");
 				}
 			}
 			for(Field f: fields) {
 				if(f.isAnnotationPresent(Direction.class)) {
 					Direction d = f.getAnnotation(Direction.class);
-					help = (f.getName() + "\n");
+					help = (help + f.getName() + "\n");
 				}
 			}
 			return help;
@@ -281,8 +290,18 @@ public class doStuff {
 		}
 	}
 	
-	public HashMap getInventory()
+	public String getInventory()
 	{
-		return player.getInventory();	
+		return player.showInventory();
+	}
+	
+	public boolean getInvChange()
+	{
+		return invChange;	
+	}
+	
+	public boolean getTextChange()
+	{
+		return textChange;
 	}
 }

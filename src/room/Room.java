@@ -8,7 +8,7 @@ public interface Room
 	public String getDescription();
 	public String look();
 	public boolean hasItem(String item);
-	public String removeItem(String item, Player player);
-	public String addItem(String item, Player player);
+	public String take(String item, Player player);
+	public String drop(String item, Player player);
 	public HashMap getItems();
 }

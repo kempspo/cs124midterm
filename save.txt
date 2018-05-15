@@ -2,24 +2,24 @@ PLAYER
 
 room.Room10
 
-room.Room3
-
-room.Room4
-key
+room.Room7
 
 room.Room8
+
+room.Room5
+knife
+
+room.Room9
 
 room.Room2
 pan
 
 room.Room6
 
-room.Room9
+room.Room3
 
-room.Room7
-
-room.Room5
-knife
+room.Room4
+key
 
 room.Room1
 

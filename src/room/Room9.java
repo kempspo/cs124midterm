@@ -55,7 +55,7 @@ public class Room9 implements Room
 	}
   
 	@Command(command="take")
-	public String removeItem(String item, Player player)
+	public String take(String item, Player player)
 	{
 		if(hasItem(item))
 		{
@@ -68,7 +68,7 @@ public class Room9 implements Room
 	}
   
 	@Command(command="drop")
-	public String addItem(String item, Player player)
+	public String drop(String item, Player player)
 	{
 		if(player.hasItem(item))
 		{

@@ -47,7 +47,6 @@ public class Room4 implements Room
 		return output;
 	}
 
-	@Command(command="take")
 	public boolean hasItem(String item)
 	{
 		if(itemsInRoom.containsKey(item))
@@ -56,8 +55,8 @@ public class Room4 implements Room
 			return false;
 	}
   
-	@Command(command="drop")
-	public String removeItem(String item, Player player)
+	@Command(command="take")
+	public String take(String item, Player player)
 	{
 		if(hasItem(item))
 		{
@@ -68,8 +67,9 @@ public class Room4 implements Room
 		else
 			return "There is no " + item + " anywhere around you.";
 	}
-  
-	public String addItem(String item, Player player)
+	
+	@Command(command="drop")
+  	public String drop(String item, Player player)
 	{
 		if(player.hasItem(item))
 		{
