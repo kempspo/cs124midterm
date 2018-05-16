@@ -4,8 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class FileStrategy implements Strategy {
-	public doStuff ds;
-	public UIReading uiread;
+	private Commands c;
 
 	public void read(String string) throws Exception 
 	{
@@ -15,16 +14,20 @@ public class FileStrategy implements Strategy {
 		while(sc.hasNextLine())
 		{
 			String next = sc.nextLine();
-			
+			if(next.contains("register")) 
+			{
+				c.register(next);
+			}
 			if(next.contains("move")) 
 			{
-				uiread.ds.move(next);
+				c.move(next);
 			}
 			if(next.contains("execute"))
 			{
-				uiread.ds.execute(next);
+				c.execute(next);
 			}
 		}
 		sc.close();
 	}
+	
 }

@@ -20,7 +20,6 @@ public class Main
 				control.make();
 				temp++;
 			}
-			//System.out.println(control.getChanged() + " " + temp);
 			if(control.getChanged() && temp == 1)
 			{
 				control.createTopLabel();
