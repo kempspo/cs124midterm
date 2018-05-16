@@ -60,9 +60,13 @@ public class Controller{
 		currentState.createButtons(this);
 	}
 	
-	public void make()
+	public void make() throws Exception
 	{
-		currentState.make();
+		try {
+			currentState.make();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public boolean getChanged()

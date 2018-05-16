@@ -59,7 +59,6 @@ public class UIReading extends JFrame implements State
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(2,2));
 		add(bottomPanel,"South");
-
 	}
 
 	/**
@@ -254,7 +253,7 @@ public class UIReading extends JFrame implements State
 	
 	}
 	
-	public void make()
+	public void make() throws Exception
 	{
 		this.setSize(1280, 720);
 		this.setVisible(true);
@@ -267,6 +266,12 @@ public class UIReading extends JFrame implements State
 				windowEvent.getWindow().dispose();
 			}
 		}));
+		
+		try {
+			setTextArea(commands.load());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

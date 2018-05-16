@@ -1,5 +1,7 @@
 package cs124midterm;
 
+import java.io.Serializable;
+
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.DynamicType.Loaded;
@@ -7,7 +9,7 @@ import net.bytebuddy.dynamic.DynamicType.Unloaded;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class Interceptor {
+public class Interceptor implements Serializable {
 	public Object run(Class<? extends Object> clazz) throws Exception{
 		ByteBuddy byteBuddy = new ByteBuddy();
 		DynamicType.Builder<? extends Object> builder = byteBuddy.subclass(clazz).implement(EnterCondition.class);

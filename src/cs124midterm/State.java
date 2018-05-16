@@ -9,5 +9,5 @@ public interface State
 	public void setInventory(String s);
 	public void createInput();
 	public void createButtons(Controller c);
-	public void make();
+	public void make() throws Exception;
 }

@@ -55,8 +55,10 @@ public class Commands {
 	
 	public String load() throws Exception
 	{
+		String temp = "";
 		if(newGame)
 		{
+			System.out.print("Went here");
 			// load all names
 			FastClasspathScanner scanner = new FastClasspathScanner("room");
 			ScanResult result = scanner.scan();
@@ -100,9 +102,10 @@ public class Commands {
 		
 		else
 		{
-			roomMap = save.getRoomMap();
-			player = save.getPlayer();
-			currentRoom = save.getCurrentRoom();
+			//roomMap = save.getRoomMap();
+			//player = save.getPlayer();
+			//currentRoom = save.getCurrentRoom();
+			
 		}
 		return printDescription();
 	}
@@ -248,17 +251,15 @@ public class Commands {
 	public void save() throws Exception
 	{
 		try {
-			save.setRoomMap(roomMap);
-			save.setPlayer(player);
-			save.setCurrentRoom(currentRoom);
+			save = new SaveData(roomMap, player, currentRoom);
 			
 			FileOutputStream fileOut = new FileOutputStream(file);
 			ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-			objOut.writeObject(save);
+			objOut.writeObject(currentRoom);
 			objOut.close();
 			fileOut.close();
 		} catch(Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 		
