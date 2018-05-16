@@ -5,7 +5,7 @@ public class Controller{
 
 	private State currentState;
 	private Commands c;
-	private boolean changed;
+	private volatile boolean changed;
 
 	public Controller()
 	{

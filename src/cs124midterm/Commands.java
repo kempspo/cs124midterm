@@ -33,7 +33,6 @@ public class Commands {
 	
 	public void register(String name) throws Exception
 	{
-		System.out.println("happening");
 		file = new File(name +".json");
 		if(file.exists())
 		{
