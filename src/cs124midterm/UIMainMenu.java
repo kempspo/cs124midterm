@@ -19,10 +19,12 @@ public class UIMainMenu extends JFrame implements State {
 		
 		private JScrollPane scrollPane;
 		private Commands commands;
+		private Context context;
 
 		public UIMainMenu(Commands c)
 		{				
 			commands = c;
+			//context = co;
 			
 			setLayout(new BorderLayout());
 
@@ -96,6 +98,12 @@ public class UIMainMenu extends JFrame implements State {
 				public void actionPerformed(ActionEvent ae) 
 				{
 					setTextArea("Switching to File Reading Mode\n");
+					context.setStrategy(new FileStrategy());
+					try {
+						context.executeStrategy(textField.getText());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			fileRead.addActionListener(new fileReadListener());
