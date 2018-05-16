@@ -58,7 +58,6 @@ public class Commands {
 		String temp = "";
 		if(newGame)
 		{
-			System.out.print("Went here");
 			// load all names
 			FastClasspathScanner scanner = new FastClasspathScanner("room");
 			ScanResult result = scanner.scan();
@@ -113,6 +112,7 @@ public class Commands {
 	public String printDescription() throws Exception
 	{
 		Class<? extends Object> c = currentRoom.getClass();
+		//System.out.println(c);
 		if(currentRoom instanceof EnterCondition) {
 			c = c.getSuperclass();
 		}

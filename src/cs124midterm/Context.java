@@ -7,7 +7,7 @@ public class Context {
 	      this.strategy = strategy;
 	   }
 
-	   public void executeStrategy(String string) throws Exception{
-	      strategy.read(string);
+	   public void executeStrategy(String string, Commands c, Controller con) throws Exception{
+	      strategy.read(string, c,con);
 	   }
 	}

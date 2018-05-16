@@ -265,7 +265,7 @@ public class UIReading extends JFrame implements State
 			{
 				windowEvent.getWindow().dispose();
 			}
-		}));
+		}));	
 		
 		try {
 			setTextArea(commands.load());	
