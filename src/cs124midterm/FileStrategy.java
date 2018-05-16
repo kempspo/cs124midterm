@@ -31,7 +31,7 @@ public class FileStrategy implements Strategy {
 			com.save();
 		}
 		sc.close();
-		con.setState(new UIReading(c));
+		con.setState(new UIReading(com));
 	}
 	
 }
