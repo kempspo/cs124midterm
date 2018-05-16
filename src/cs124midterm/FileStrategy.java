@@ -9,7 +9,6 @@ public class FileStrategy implements Strategy {
 
 	public void read(String string, Commands com, Controller con) throws Exception 
 	{
-		c = com;
 		File file = new File(string);
 		Scanner sc = new Scanner(file);
 		while(sc.hasNextLine())
@@ -18,17 +17,18 @@ public class FileStrategy implements Strategy {
 			String[] stuff = next.split(" ");
 			if(next.contains("register")) 
 			{
-				c.register(stuff[1]);
-				c.load();
+				com.register(stuff[1]);
+				com.load();
 			}
 			if(next.contains("move")) 
 			{
-				c.move(stuff[1]);
+				com.move(stuff[1]);
 			}
 			if(next.contains("execute"))
 			{
-				c.execute(stuff[1]);
+				com.execute(stuff[1]);
 			}
+			com.save();
 		}
 		sc.close();
 		con.setState(new UIReading(c));
