@@ -12,25 +12,26 @@ public class FileStrategy implements Strategy {
 		c = com;
 		File file = new File(string);
 		Scanner sc = new Scanner(file);
-		
 		while(sc.hasNextLine())
 		{
 			String next = sc.nextLine();
+			String[] stuff = next.split(" ");
 			if(next.contains("register")) 
 			{
-				c.register(next);
+				c.register(stuff[1]);
 				c.load();
 			}
 			if(next.contains("move")) 
 			{
-				c.move(next);
+				c.move(stuff[1]);
 			}
 			if(next.contains("execute"))
 			{
-				c.execute(next);
+				c.execute(stuff[1]);
 			}
 		}
 		sc.close();
+		con.setState(new UIReading(c));
 	}
 	
 }

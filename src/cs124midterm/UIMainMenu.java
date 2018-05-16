@@ -108,14 +108,6 @@ public class UIMainMenu extends JFrame implements State {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					context.setStrategy(new NormalStrategy());
-					try {
-						context.executeStrategy(textField.getText(), commands,c);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					c.setState(new UIReading(commands));
 					dispose();
 				}
 			}
@@ -133,10 +125,8 @@ public class UIMainMenu extends JFrame implements State {
 						setTextArea("Please input a name.\n");
 					else
 					{
-						//commands.register(textField.getText());
 						context.setStrategy(new NormalStrategy());
-						context.executeStrategy(textField.getText(), commands,c);
-						c.setState(new UIReading(commands));
+						context.executeStrategy(textField.getText(), commands, c);
 						dispose();
 					}
 				} catch (Exception e) {
